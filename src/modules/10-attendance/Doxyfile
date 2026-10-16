@@ -1,6 +1,6 @@
 # Run from the repository root: doxygen src/modules/10-attendance/Doxyfile
 PROJECT_NAME = "C3L Module 10 - Attendance"
-PROJECT_NUMBER = "Sprint 1 / v0.1.0-rc.1"
+PROJECT_NUMBER = "Sprint 1 / v0.1.0-rc.2"
 OUTPUT_DIRECTORY = src/modules/10-attendance/docs/generated
 INPUT = src/modules/10-attendance src/modules/10-attendance/docs/design.md src/modules/10-attendance/docs/srs-update.md src/modules/10-attendance/docs/testing.md
 USE_MDFILE_AS_MAINPAGE = src/modules/10-attendance/docs/design.md

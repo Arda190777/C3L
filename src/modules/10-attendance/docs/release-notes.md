@@ -8,7 +8,7 @@ Upstream: https://github.com/JGreyScales/C3L
 
 Branch: `feature/attendance-sprint-1`
 
-Candidate tag: `module10-sprint1-v0.1.0-rc.1`
+Candidate tag: `module10-sprint1-v0.1.0-rc.2`
 
 Date: October 16, 2026. This is a tested local prototype candidate awaiting team review, not a
 claim that the fork's main branch or class repository has been updated.
@@ -24,7 +24,11 @@ attendance implementation; these are new features/enhancements, not invented pri
 
 ## Known issues and unfinished work
 
-- #4: real teammate code review, final collaborative SRS ID mapping/update and team demo are pending.
+- #4: final submission-form and release metadata checks (Arda).
+- #8: collaborative SRS ID mapping/update and final regression verification (Nasir).
+- #9: real teammate review, use-instruction check and demo (Jaspreet).
+- Gera owns the technical review/corrections for #1/#3; Nasir also reviews #2. Their GitHub
+  assignments remain pending account information. These are planned responsibilities.
 - #5: authentication, instructor permissions and course/enrollment validation are not integrated.
   Use fictional IDs only in a local environment. History currently returns all matching local data.
 - #6: participation tracking, attendance reports and attendance statistics are later-sprint work.
@@ -53,6 +57,6 @@ empty-state, date validation and 375px layout checks passed. See `testing.md` an
 
 ## Before final submission
 
-Accept the collaborator invitation, complete a real teammate review and merge the internal PR.
+Complete a real teammate review and merge the internal PR.
 Copy/match proposed requirements into the class SRS and record Sprint Iteration 1. Rehearse the
 demo, record actual review/retrospective evidence and update this candidate if anything changes.

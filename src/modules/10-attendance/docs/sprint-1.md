@@ -23,16 +23,17 @@ Do not present the demo placeholder as a fixed production bug.
 
 ## Step 2 - New functionality
 
-| Issue | Task | Proposed requirement | Assignee |
+| Issue | Task | Proposed requirement | Planned owner |
 | --- | --- | --- | --- |
-| #1 | Daily attendance, correction, persistence and absence types | M10-FR-01, M10-FR-03 | Arda190777 |
-| #2 | Filtered attendance history, HTML and JSON | M10-FR-02 | Arda190777 |
-| #3 | Input validation and safe rendering/storage | M10-NFR-01, M10-NFR-02 | Arda190777 |
-| #4 | Tests, design, submission documents and teammate review | Common requirements | Arda190777 and jaspreetgakhal1 |
+| #1, #3 | Review/finalize attendance recording, correction and validation | M10-FR-01, M10-FR-03, NFR-01/02 | Gera Paoli; GitHub username needed |
+| #2, #8 | Review history/filters, verify regression evidence and update the class SRS | M10-FR-02 and common requirements | Nasir Ishaq Sani; GitHub username needed |
+| #4 | Check completed submission forms, repository/tag details and final upload checklist | Common requirements | Arda Efe Cetintav (Arda190777) |
+| #9 | Follow quick-start instructions, rehearse the simple demo and perform peer review | Common requirements | Jaspreet Gakhal (jaspreetgakhal1) |
 
-These assignments describe actual GitHub task ownership, not claims about each person's completed
-work. The collaborator invitation was accepted and GitHub confirms Write access. Issue #4 is
-assigned to both members. A real teammate review is still needed.
+Arda and Jaspreet handle final-check/demo tasks. Gera and Nasir own technical verification and
+SRS work. Code/tests and draft documents are prepared. Each member should review their section
+and record actual results. GitHub account assignments for Gera and Nasir are deferred for now.
+Jaspreet has Write access. Actual peer review, shared SRS editing and the team demo are pending.
 
 ## Definition of done
 
@@ -40,7 +41,8 @@ assigned to both members. A real teammate review is still needed.
 - [x] Module tests and full `bun run check` pass with saved output.
 - [x] Requirements and design update prepared in the module folder.
 - [ ] Team code review completed and internal PR merged.
-- [ ] Proposed requirement IDs mapped into the actual collaborative SRS.
+- [ ] Proposed requirement IDs mapped into the actual collaborative SRS (#8).
+- [ ] GitHub tasks assigned to Gera and Nasir when their accounts are added; deferred for now.
 - [ ] Team demo rehearsed and review/retrospective observations recorded.
 - [ ] Final submission checked against the class rubric.
 
@@ -56,8 +58,9 @@ assigned to both members. A real teammate review is still needed.
 3. Save the same combination as Absent - excused; show that only one row remains.
 4. Add S1002 as Absent - unexcused and show both labels.
 5. Filter by student and date, then show an empty result.
-6. Explain date/ID validation and show the test output and persistence test.
-7. Explain #5/#6 and the next-sprint scope. Each teammate should be able to explain their contribution.
+6. Gera explains date/ID validation; Nasir shows the test results and SRS mapping.
+7. Arda confirms the deliverables and tag; explain #5/#6 as deferred work. Each teammate explains
+   their actual contribution. Jaspreet can lead the simple screen demonstration.
 
 Sprint review and retrospective are team activities. No meeting, peer review or contribution is
 recorded as completed unless it actually occurs.

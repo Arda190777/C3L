@@ -37,7 +37,7 @@ There are no failing automated test cases in the final candidate.
 | DB-06 | SQL-looking IDs remain literal values | #3 | Pass |
 | DB-07 | Store rejects invalid marks/filters | #3 | Pass |
 | DB-08 | Close/reopen a file database without losing records | #1 | Pass |
-| HTTP-01 | Shared prefix and response wrapper serve HTML form | #4 | Pass |
+| HTTP-01 | Shared prefix and response wrapper serve HTML form | #8 | Pass |
 | HTTP-02 | Save/read all three statuses as JSON | #1 | Pass |
 | HTTP-03 | Refuse malformed, missing or wrong-type JSON data | #3 | Pass |
 | HTTP-04 | Invalid date/ID/status gives 422 and no write | #3 | Pass |
@@ -48,9 +48,9 @@ There are no failing automated test cases in the final candidate.
 | HTTP-09 | Filtered records and empty-state message | #2 | Pass |
 | HTTP-10 | API correction changes status without a duplicate | #1 | Pass |
 | HTTP-11 | Storage failure gives friendly 503; internal details absent | #3 | Pass |
-| APP-01 | Actual app discovers module, serves its form and preserves 404 | #4 | Pass |
+| APP-01 | Actual app discovers module, serves its form and preserves 404 | #8 | Pass |
 
-M10-FR-01 and FR-03 map to #1, FR-02 to #2, NFR-01/02 to #3 and NFR-03 to #4.
+M10-FR-01 and FR-03 map to #1, FR-02 to #2, NFR-01/02 to #3 and NFR-03 to #8.
 These are provisional module IDs; the class SRS mapping is still pending.
 
 ## Browser checks
@@ -71,7 +71,9 @@ checks, not evidence of a teammate performing a review. Screenshots are in `docs
 | Issue | Status | Impact / next action |
 | --- | --- | --- |
 | #1-#3 | Implemented; open pending team PR merge | Local prototype features pass tests |
-| #4 | In progress | Class SRS update, real peer review and team demo still required |
+| #4 | In progress | Arda checks final forms and release metadata |
+| #8 | In progress | Nasir verifies regression evidence and updates the shared SRS; account/link needed |
+| #9 | In progress | Jaspreet checks use instructions, performs review and rehearses demo |
 | #5 | Open | No login/role/course-enrollment enforcement; use sample data locally |
 | #6 | Backlog | Participation, reports and statistics not implemented |
 

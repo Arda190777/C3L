@@ -23,7 +23,7 @@ reading history and distinguishing excused/unexcused absences. It uses sample st
 | M10-FR-06 | Show attendance statistics. Formula/denominator to be agreed. | Later | #6 | Not implemented |
 | M10-NFR-01 | Validate on the server: trimmed IDs 1-50 characters, real YYYY-MM-DD date, allowed status and optional notes up to 300 characters. Invalid input returns 422 and no write. | 1 | #3 | Implemented; tested |
 | M10-NFR-02 | Escape user data in HTML and bind SQL parameters. Return a friendly 503 for storage failure. | 1 | #3 | Implemented; tested |
-| M10-NFR-03 | Keep the shared router and all 12 module front pages working. Add no runtime dependency. | 1 | #4 | Regression tests passed |
+| M10-NFR-03 | Keep the shared router and all 12 module front pages working. Add no runtime dependency. | 1 | #8 | Regression tests passed |
 
 ## User stories
 
@@ -34,6 +34,16 @@ reading history and distinguishing excused/unexcused absences. It uses sample st
 
 These are intended roles. The prototype does not authenticate instructors; #5 tracks the missing
 identity/role/enrollment integration. It must be resolved before real student data is used.
+
+## Planned team responsibility
+
+- Arda Efe Cetintav: final submission-form and release metadata checks (#4).
+- Jaspreet Gakhal: quick-start verification, short demo and actual peer review (#9).
+- Gera Paoli: attendance/validation implementation review and corrections (#1, #3).
+- Nasir Ishaq Sani: history/filter review, regression verification and shared SRS update (#2, #8).
+
+Gera and Nasir's GitHub accounts and the collaborative SRS link are still needed. This allocation
+does not claim completed individual contributions or change the implemented Sprint 1 scope.
 
 ## Business rules and dependencies
 

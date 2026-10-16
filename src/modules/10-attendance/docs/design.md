@@ -91,7 +91,7 @@ Storage failure: 503 `{ "error": "Could not load attendance." }`.
 - Storage is local to one server; shared deployment and backups need a later decision.
 - API and pages currently have no authorization, roster validation or pagination (#5 and future planning).
 - Participation and reports/statistics remain unimplemented (#6).
-- The class collaborative SRS has not been edited: its link and official IDs are still needed (#4).
+- The class collaborative SRS has not been edited: its link and official IDs are still needed (#8).
 
 ## Source files
 
