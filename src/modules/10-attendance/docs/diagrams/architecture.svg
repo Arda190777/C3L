@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 410" role="img" aria-label="Module 10 architecture">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#475569"/></marker></defs>
+<rect width="960" height="410" fill="white"/>
+<text x="24" y="32" font-family="Arial" font-size="20" font-weight="bold" fill="#1e293b">Module 10 architecture</text>
+<path d="M194 140 L250 140" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M455 140 L510 140" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M710 140 L760 140" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M610 190 L610 270" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M550 190 L400 270" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="24" y="90" width="170" height="100" rx="6" fill="#eff6ff" stroke="#64748b"/>
+<text x="38" y="117" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">Browser</text>
+<text x="38" y="144" font-family="Arial" font-size="14" fill="#334155">Form / history</text>
+<text x="38" y="167" font-family="Arial" font-size="14" fill="#334155">JSON client</text>
+<rect x="250" y="90" width="205" height="100" rx="6" fill="#eff6ff" stroke="#64748b"/>
+<text x="264" y="117" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">Shared C3L app</text>
+<text x="264" y="144" font-family="Arial" font-size="14" fill="#334155">Discovers index.js</text>
+<text x="264" y="167" font-family="Arial" font-size="14" fill="#334155">Prefix /10-attendance</text>
+<rect x="510" y="90" width="200" height="100" rx="6" fill="#eff6ff" stroke="#64748b"/>
+<text x="524" y="117" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">router.js</text>
+<text x="524" y="144" font-family="Arial" font-size="14" fill="#334155">Validate requests</text>
+<text x="524" y="167" font-family="Arial" font-size="14" fill="#334155">HTML or JSON</text>
+<rect x="510" y="270" width="200" height="100" rx="6" fill="#eff6ff" stroke="#64748b"/>
+<text x="524" y="297" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">pages.js</text>
+<text x="524" y="324" font-family="Arial" font-size="14" fill="#334155">Escaped HTML</text>
+<text x="524" y="347" font-family="Arial" font-size="14" fill="#334155">Form and history</text>
+<rect x="760" y="90" width="180" height="100" rx="6" fill="#eff6ff" stroke="#64748b"/>
+<text x="774" y="117" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">AttendanceStore</text>
+<text x="774" y="144" font-family="Arial" font-size="14" fill="#334155">Parameterized SQL</text>
+<text x="774" y="167" font-family="Arial" font-size="14" fill="#334155">Local SQLite</text>
+<rect x="250" y="270" width="205" height="100" rx="6" fill="#eff6ff" stroke="#64748b"/>
+<text x="264" y="297" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">attendance.js</text>
+<text x="264" y="324" font-family="Arial" font-size="14" fill="#334155">Date / ID checks</text>
+<text x="264" y="347" font-family="Arial" font-size="14" fill="#334155">Allowed statuses</text>
+</svg>

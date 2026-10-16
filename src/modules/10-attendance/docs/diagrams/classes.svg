@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 410" role="img" aria-label="Class and module responsibilities">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#475569"/></marker></defs>
+<rect width="960" height="410" fill="white"/>
+<text x="24" y="32" font-family="Arial" font-size="20" font-weight="bold" fill="#1e293b">Class and module responsibilities</text>
+<path d="M275 180 L355 180" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="315.0" y="170.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#334155">uses</text>
+<path d="M620 180 L700 180" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="660.0" y="170.0" text-anchor="middle" font-family="Arial" font-size="13" fill="#334155">uses</text>
+<rect x="25" y="90" width="250" height="170" rx="6" fill="#eff6ff" stroke="#64748b"/>
+<text x="39" y="117" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">Router factory</text>
+<text x="39" y="144" font-family="Arial" font-size="14" fill="#334155">createAttendanceRouter()</text>
+<text x="39" y="167" font-family="Arial" font-size="14" fill="#334155">HTML and JSON routes</text>
+<text x="39" y="190" font-family="Arial" font-size="14" fill="#334155">Calls validation functions</text>
+<text x="39" y="213" font-family="Arial" font-size="14" fill="#334155">Uses injected storage</text>
+<rect x="355" y="90" width="265" height="240" rx="6" fill="#eff6ff" stroke="#64748b"/>
+<text x="369" y="117" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">AttendanceStore</text>
+<text x="369" y="144" font-family="Arial" font-size="14" fill="#334155">filename, database</text>
+<text x="369" y="167" font-family="Arial" font-size="14" fill="#334155">constructor(filename)</text>
+<text x="369" y="190" font-family="Arial" font-size="14" fill="#334155">save(input): record</text>
+<text x="369" y="213" font-family="Arial" font-size="14" fill="#334155">list(filter): records</text>
+<text x="369" y="236" font-family="Arial" font-size="14" fill="#334155">close()</text>
+<text x="369" y="259" font-family="Arial" font-size="14" fill="#334155">Lazily opens SQLite</text>
+<rect x="700" y="90" width="235" height="170" rx="6" fill="#eff6ff" stroke="#64748b"/>
+<text x="714" y="117" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">Validation / pages</text>
+<text x="714" y="144" font-family="Arial" font-size="14" fill="#334155">validateAttendance()</text>
+<text x="714" y="167" font-family="Arial" font-size="14" fill="#334155">validateFilter()</text>
+<text x="714" y="190" font-family="Arial" font-size="14" fill="#334155">renderForm()</text>
+<text x="714" y="213" font-family="Arial" font-size="14" fill="#334155">renderHistory()</text>
+</svg>

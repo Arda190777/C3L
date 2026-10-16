@@ -1,4 +1,6 @@
-/** @file Attendance data and validation shared by the form and JSON API. */
+/** @file attendance.js
+ * @brief Attendance data and validation shared by the form and JSON API.
+ */
 export const attendanceStatuses = ['present', 'excused', 'unexcused']
 export const statusLabels = {
   present: 'Present',

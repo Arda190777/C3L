@@ -1,4 +1,6 @@
-/** @file Server-rendered attendance pages. All submitted text is escaped before display. */
+/** @file pages.js
+ * @brief Server-rendered attendance pages with escaped submitted text.
+ */
 import { escapeHtml } from '../../core/pages'
 import { attendanceStatuses, statusLabels } from './attendance'
 function page(base, title, content) {

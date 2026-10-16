@@ -1,4 +1,6 @@
-/** @file HTML form, history page and JSON endpoints mounted by the shared router. */
+/** @file router.js
+ * @brief HTML form, history page and JSON endpoints mounted by the shared router.
+ */
 import { Elysia, t } from 'elysia'
 import { validateAttendance, validateFilter } from './attendance'
 import { renderForm, renderHistory } from './pages'

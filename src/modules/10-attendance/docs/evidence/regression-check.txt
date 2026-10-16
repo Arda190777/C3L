@@ -1,0 +1,170 @@
+$ bun run lint && bun run typecheck && bun run test && bun run sanity
+$ biome lint .
+biome.json:25:13 deserialize  DEPRECATED  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The use of the recommended field has been deprecated, and will removed in the next major version of Biome. Use preset instead.
+  
+    23 │     }
+    24 │   },
+  > 25 │   "linter": {
+       │             ^
+  > 26 │     "enabled": true,
+  > 27 │     "rules": {
+  > 28 │       "recommended": true
+  > 29 │     }
+  > 30 │   }
+       │   ^
+    31 │ }
+    32 │ 
+  
+  i Migrate the configuration with the proper command
+  
+  $ biome migrate
+  
+
+Checked 49 files in 35ms. No fixes applied.
+Found 1 info.
+$ tsc --noEmit
+$ bun test
+bun test v1.4.3 (c6da4a4d3)
+
+tests\app.test.ts:
+(pass) the real modules in src/modules > all 12 module folders from the brief exist and load [186.54ms]
+(pass) the real modules in src/modules > every module loads and its front page answers 200 with HTML [21.40ms]
+(pass) the real modules in src/modules > the _template module works, so copies of it work too [3.94ms]
+(pass) main app with healthy modules > each module gets a fast-click button on the home page [2.66ms]
+(pass) main app with healthy modules > module names are escaped, so they cannot break the home page [0.16ms]
+(pass) main app with healthy modules > a string returned by a module is served as HTML [0.25ms]
+(pass) main app with healthy modules > an unknown address gives a friendly 404 page [0.22ms]
+
+[C3L] Could not load the module in "Bad Name":
+The folder name "Bad Name" is not allowed. Use only lowercase letters, numbers, "-" and "_" (example: 02-courses).
+
+
+[C3L] Could not load the module in "bad-router":
+defineModule needs a "router". Example: router: new Elysia().get("/", () => "<h1>Hi</h1>")
+
+
+[C3L] Could not load the module in "broken-syntax":
+Unexpected end of file
+
+
+[C3L] Could not load the module in "no-default":
+index.ts has no default export. The file must contain: export default defineModule({ ... })
+
+
+[C3L] Could not load the module in "no-index":
+There is no index.ts inside "no-index". Every module needs a file called index.ts.
+
+(pass) main app with broken modules > one broken module does not stop the others [3.49ms]
+(pass) main app with broken modules > every broken folder is reported, and folders starting with _ are skipped [0.19ms]
+(pass) main app with broken modules > the home page explains what went wrong [0.54ms]
+(pass) the sanity check > flags a module whose front page is missing or is not HTML [15.50ms]
+(pass) registerModule and defineModule > two modules cannot share a web address [0.53ms]
+(pass) registerModule and defineModule > defineModule explains a missing name or router [0.14ms]
+(pass) finishResponse > leaves JSON alone [2.61ms]
+(pass) finishResponse > shows a friendly page when a route crashes [3.20ms]
+
+src\examples\proxy-demo\forward.test.ts:
+(pass) forwardRequest > removes the prefix and keeps the query [5.50ms]
+(pass) forwardRequest > only removes the prefix when it is a whole part of the address [0.77ms]
+(pass) forwardRequest > can remove a longer prefix, like the one a module is mounted under [0.39ms]
+(pass) forwardRequest > passes the method and the body on [4.13ms]
+(pass) forwardRequest > passes headers on, but the target sees its own host [0.43ms]
+(pass) forwardRequest > gives back the status and body of the target [0.59ms]
+(pass) forwardRequest > keeps every cookie the target sets [0.40ms]
+(pass) forwardRequest > answers 502 when the target is not running [1.94ms]
+
+src\modules\01-identity-users\jsonFile.test.ts:
+(pass) loadTables > a missing file gives empty tables, including the session table [0.34ms]
+(pass) loadTables > a broken file throws instead of being treated as empty [19.07ms]
+(pass) createSaver > saves users, accounts and verifications, but not sessions [16.19ms]
+(pass) createSaver > dates come back as real Date objects after loading [3.85ms]
+(pass) createSaver > many saves at the same time still leave one valid file and no temporary file [34.50ms]
+(pass) withAutoSave > saves after a method that changes data, and passes the result through [0.65ms]
+(pass) withAutoSave > does not save after reading [0.24ms]
+
+src\modules\01-identity-users\openapi.test.ts:
+(pass) the OpenAPI description > it is an OpenAPI 3 document [0.03ms]
+(pass) the OpenAPI description > every endpoint in the list is described, under the module address [0.10ms]
+(pass) the OpenAPI description > no endpoint is listed twice [0.06ms]
+(pass) the OpenAPI description > the part of an address that changes becomes a path parameter [0.04ms]
+(pass) the OpenAPI description > a body lists all its fields as required, and the role choices match the real roles [0.03ms]
+(pass) the OpenAPI description > the User description knows the roles [0.02ms]
+(pass) the pages > the front page shows every endpoint and links to the docs [0.16ms]
+(pass) the pages > the docs page points Swagger UI at the description [0.06ms]
+
+src\modules\01-identity-users\router.test.ts:
+(pass) Module 1: identity and users > the front page lists the endpoints [2.82ms]
+(pass) Module 1: identity and users > Swagger UI and the endpoint description are served [1.03ms]
+(pass) Module 1: identity and users > every endpoint in endpoints.ts really exists [39.85ms]
+(pass) Module 1: identity and users > the first account becomes the admin, the next one a student [249.26ms]
+(pass) Module 1: identity and users > nobody can choose their own role while registering [110.55ms]
+2026-10-16T21:51:54.146Z WARN [Better Auth]: Invalid password
+(pass) Module 1: identity and users > a wrong password is turned away, the right one signs in [211.57ms]
+(pass) Module 1: identity and users > signing out works [116.51ms]
+(pass) Module 1: identity and users > /api/me needs a login [0.51ms]
+(pass) Module 1: identity and users > users can change their own name [10.60ms]
+(pass) Module 1: identity and users > only admins can list users [4.92ms]
+(pass) Module 1: identity and users > other users only see public details, the owner sees the email [6.59ms]
+(pass) Module 1: identity and users > an admin can change a role, and it works immediately [8.85ms]
+(pass) Module 1: identity and users > bad role changes are refused [6.15ms]
+(pass) Module 1: identity and users > a deactivated account is locked out, and can be activated again [235.78ms]
+2026-10-16T21:51:54.882Z WARN [Better Auth]: Invalid password
+(pass) Module 1: identity and users > a password can be reset with a token [350.99ms]
+(pass) Module 1: identity and users > accounts and logins survive a server restart [126.28ms]
+
+src\modules\10-attendance\attendance.test.js:
+(pass) attendance validation > VAL-01 accepts all three attendance statuses [0.29ms]
+(pass) attendance validation > VAL-02 rejects blank and oversized IDs [0.09ms]
+(pass) attendance validation > VAL-03 rejects impossible dates and accepts leap days [0.08ms]
+(pass) attendance validation > VAL-04 rejects unknown status and long notes [0.05ms]
+(pass) attendance validation > VAL-05 checks history dates and ID lengths [0.14ms]
+
+src\modules\10-attendance\router.test.js:
+(pass) attendance routes through the shared prefix > HTTP-01 serves the form as HTML through finishResponse [6.00ms]
+(pass) attendance routes through the shared prefix > HTTP-02 saves and retrieves JSON for each status [15.91ms]
+(pass) attendance routes through the shared prefix > HTTP-03 rejects malformed or missing JSON fields [9.84ms]
+(pass) attendance routes through the shared prefix > HTTP-04 rejects invalid date, blank ID and unsupported status [5.62ms]
+(pass) attendance routes through the shared prefix > HTTP-05 form submission redirects after saving [7.57ms]
+(pass) attendance routes through the shared prefix > HTTP-06 form errors preserve escaped values [5.13ms]
+(pass) attendance routes through the shared prefix > HTTP-07 history escapes stored notes and IDs [4.99ms]
+(pass) attendance routes through the shared prefix > HTTP-08 validates date filters for both history endpoints [9.97ms]
+(pass) attendance routes through the shared prefix > HTTP-09 filters records and shows an empty state [5.66ms]
+(pass) attendance routes through the shared prefix > HTTP-10 corrects an existing mark through the API [6.54ms]
+(pass) attendance routes through the shared prefix > HTTP-11 uses a friendly error when storage fails [5.77ms]
+(pass) APP-01 discovers Module 10 and keeps the main site working [8.34ms]
+
+src\modules\10-attendance\store.test.js:
+(pass) attendance storage > DB-01 starts with an empty history [2.38ms]
+(pass) attendance storage > DB-02 saves trimmed IDs and notes [0.80ms]
+(pass) attendance storage > DB-03 corrects a mark without creating a duplicate [0.93ms]
+(pass) attendance storage > DB-04 keeps different students, courses and dates separate [0.95ms]
+(pass) attendance storage > DB-05 combines exact ID filters with inclusive date limits [0.77ms]
+(pass) attendance storage > DB-06 treats SQL-looking IDs as literal data [0.72ms]
+(pass) attendance storage > DB-07 rejects invalid data before it reaches SQLite [0.56ms]
+(pass) attendance storage > DB-08 retains records after closing and reopening a file database [12.58ms]
+
+src\modules\_template\index.test.ts:
+(pass) the front page answers 200 [2.76ms]
+(pass) the second page answers 200 [0.55ms]
+
+ 81 pass
+ 0 fail
+ 259 expect() calls
+Ran 81 tests across 9 files. [2.13s]
+$ bun scripts/check-modules.ts
+  OK    01-identity-users
+  OK    02-courses
+  OK    03-content
+  OK    04-assignments
+  OK    05-quizzes
+  OK    06-gradebook
+  OK    07-forum
+  OK    08-notifications
+  OK    09-analytics
+  OK    10-attendance
+  OK    11-calendar
+  OK    12-dashboard
+
+All 12 module(s) are OK.

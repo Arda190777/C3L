@@ -1,4 +1,6 @@
-/** @file Local SQLite storage; no extra database package is required by Bun. */
+/** @file store.js
+ * @brief Local SQLite storage using Bun's built-in database support.
+ */
 import { Database } from 'bun:sqlite'
 import { mkdirSync } from 'node:fs'
 import { dirname } from 'node:path'

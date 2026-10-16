@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 410" role="img" aria-label="Sprint 1 use cases">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#475569"/></marker></defs>
+<rect width="960" height="410" fill="white"/>
+<text x="24" y="32" font-family="Arial" font-size="20" font-weight="bold" fill="#1e293b">Sprint 1 use cases</text>
+<path d="M239 170 L380 110" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M239 195 L380 215" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M239 220 L380 320" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="24" y="145" width="215" height="100" rx="6" fill="#eff6ff" stroke="#64748b"/>
+<text x="38" y="172" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">Intended instructor</text>
+<text x="38" y="199" font-family="Arial" font-size="14" fill="#334155">Local prototype actor</text>
+<text x="38" y="222" font-family="Arial" font-size="14" fill="#334155">Auth integration pending</text>
+<rect x="380" y="70" width="500" height="80" rx="6" fill="#eff6ff" stroke="#64748b"/>
+<text x="394" y="97" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">Record attendance</text>
+<text x="394" y="124" font-family="Arial" font-size="14" fill="#334155">Course + student + date + status</text>
+<rect x="380" y="175" width="500" height="80" rx="6" fill="#eff6ff" stroke="#64748b"/>
+<text x="394" y="202" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">Correct a daily mark</text>
+<text x="394" y="229" font-family="Arial" font-size="14" fill="#334155">Same key replaces status and notes</text>
+<rect x="380" y="280" width="500" height="80" rx="6" fill="#eff6ff" stroke="#64748b"/>
+<text x="394" y="307" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">View and filter history</text>
+<text x="394" y="334" font-family="Arial" font-size="14" fill="#334155">Exact IDs and inclusive date range</text>
+</svg>
