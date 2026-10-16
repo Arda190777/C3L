@@ -4,8 +4,21 @@
 import { escapeHtml } from '../../core/pages'
 import { attendanceStatuses, statusLabels } from './attendance'
 import { page, errorSummary, fieldError, errorAttributes } from './pageLayout'
+/**
+ * Builds the form's HTML; saving and validation happen in router.js/store.js.
+ * input contains previous values after a failed submission. errors defaults to an
+ * empty object, so the initial page has no validation messages.
+ */
 export function renderForm(base, input, errors = {}) {
+  // ?? supplies blank fields on the first visit and preserves submitted values on errors.
   const values = input ?? { courseId: '', studentId: '', date: '', status: '', notes: '' }
+  // page() adds the shared document around this form. Each label's for matches an
+  // input ID; each name becomes a submitted field used by the route's request schema.
+  // method="post" sends values to the save route, with base keeping the module prefix.
+  // escapeHtml protects redisplayed values. The error helpers add field messages and ARIA
+  // links; HTML required/maxlength checks supplement the server's own validation.
+  // attendanceStatuses.map builds the dropdown options; selected preserves the choice,
+  // and join('') merges the option strings without commas.
   return page(
     base,
     'Record attendance',

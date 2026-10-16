@@ -2,7 +2,15 @@
  * @brief Shared page layout and accessible validation messages.
  */
 import { escapeHtml } from '../../core/pages'
+/**
+ * Wraps either view in the same HTML document, navigation and CSS. base is the
+ * module's URL prefix; title is plain text; content is HTML prepared by a view.
+ * Escape the title, but keep content as markup so its forms and tables render.
+ */
 export function page(base, title, content) {
+  // The template literal below is the actual page output. CSS variables share colours,
+  // the media query changes the form to one column on small screens, and table-wrap
+  // lets wide tables scroll. :focus-visible provides an outline for keyboard navigation.
   return `<!doctype html>
   <html lang="en"><head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,8 +65,13 @@ export function page(base, title, content) {
     <footer>Sprint 1: daily attendance, absence types and history.</footer>
   </main></body></html>`
 }
+/** Collects all validation/storage messages in one summary above the page content. */
 export function errorSummary(errors) {
+  // No errors means no summary markup. Object.entries supplies [field, message] pairs;
+  // map() builds list items and join('') combines them without inserting commas.
   if (!Object.keys(errors).length) return ''
+  // role="alert" helps assistive technology announce errors. Field errors link to
+  // their inputs; 'storage' has no input to focus, so it is displayed without a link.
   return `<section class="errors" role="alert"><h2>Please check the following</h2><ul>${Object.entries(
     errors,
   )
@@ -68,11 +81,15 @@ export function errorSummary(errors) {
     )
     .join('')}</ul></section>`
 }
+// The generated ID matches aria-describedby below, connecting a field to its message.
+// Escape messages so HTML-like text is displayed as text rather than interpreted as markup.
 export function fieldError(field, errors) {
   return errors[field]
     ? `<span class="error" id="${field}-error">${escapeHtml(errors[field])}</span>`
     : ''
 }
+// aria-invalid flags the field; aria-describedby identifies its explanatory error text.
+// Returning '' when valid lets the views insert this helper directly into an input tag.
 export function errorAttributes(field, errors) {
   return errors[field] ? `aria-invalid="true" aria-describedby="${field}-error"` : ''
 }
