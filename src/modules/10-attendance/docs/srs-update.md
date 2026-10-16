@@ -37,8 +37,8 @@ identity/role/enrollment integration. It must be resolved before real student da
 
 ## Planned team responsibility
 
-- Arda Efe Cetintav: final submission-form and release metadata checks (#4).
-- Jaspreet Gakhal: quick-start verification, short demo and actual peer review (#9).
+- Arda Efe Cetintav: formPage.js UI, final submission-form and release metadata checks (#4).
+- Jaspreet Gakhal: historyPage.js UI, quick-start verification, demo and actual peer review (#9).
 - Gera Paoli: attendance/validation implementation review and corrections (#1, #3).
 - Nasir Ishaq Sani: history/filter review, regression verification and shared SRS update (#2, #8).
 

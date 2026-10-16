@@ -27,11 +27,12 @@ Do not present the demo placeholder as a fixed production bug.
 | --- | --- | --- | --- |
 | #1, #3 | Review/finalize attendance recording, correction and validation | M10-FR-01, M10-FR-03, NFR-01/02 | Gera Paoli; GitHub username needed |
 | #2, #8 | Review history/filters, verify regression evidence and update the class SRS | M10-FR-02 and common requirements | Nasir Ishaq Sani; GitHub username needed |
-| #4 | Check completed submission forms, repository/tag details and final upload checklist | Common requirements | Arda Efe Cetintav (Arda190777) |
-| #9 | Follow quick-start instructions, rehearse the simple demo and perform peer review | Common requirements | Jaspreet Gakhal (jaspreetgakhal1) |
+| #4 | Form UI in formPage.js, submission forms and release details | M10-FR-01 UI and common requirements | Arda Efe Cetintav (Arda190777) |
+| #9 | History UI in historyPage.js, use instructions, demo and peer review | M10-FR-02 UI and common requirements | Jaspreet Gakhal (jaspreetgakhal1) |
 
-Arda and Jaspreet handle final-check/demo tasks. Gera and Nasir own technical verification and
-SRS work. Code/tests and draft documents are prepared. Each member should review their section
+Arda and Jaspreet handle small UI and final-check/demo tasks. Gera owns the backend write path;
+Nasir owns the read/filter/API path. Their technical workloads are comparable. Code/tests and
+draft documents are prepared. Each member should review their section
 and record actual results. GitHub account assignments for Gera and Nasir are deferred for now.
 Jaspreet has Write access. Actual peer review, shared SRS editing and the team demo are pending.
 
@@ -51,7 +52,11 @@ Jaspreet has Write access. Actual peer review, shared SRS editing and the team d
 - #5: login, instructor permissions and enrolled course/student IDs.
 - #6: participation, attendance reports and statistics (M10-FR-04 to M10-FR-06).
 
-## Five-minute demo outline
+## Presentation and demo outline
+
+The 10-slide English deck covers about 11 minutes of content/demo plus 2 minutes of questions.
+Arda presents slides 1-2 and the short closing, Jaspreet 3-4, Gera 5-7, Nasir 8-9.
+See `team-work-plan.md` and `presentation/speaker-script.md` for the exact split and speaking notes.
 
 1. Open the shared home page and Module 10.
 2. Save PROG3000 / S1001 / 2026-10-16 as Present.

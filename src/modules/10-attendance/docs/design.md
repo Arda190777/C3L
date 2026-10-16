@@ -6,6 +6,8 @@ The browser sends HTML form requests or JSON requests to the common C3L app. The
 `index.js` and mounts its router at `/10-attendance`. `router.js` validates requests using
 `attendance.js`, calls `AttendanceStore` and renders HTML through `pages.js` or returns JSON.
 The shared response wrapper sets the HTML content type. No common files were changed.
+`pages.js` exports two small views: `formPage.js` (Arda's assigned area) and `historyPage.js`
+(Jaspreet's assigned area). `pageLayout.js` shares the outer HTML and accessible error helpers.
 
 @image html architecture.svg "Module 10 architecture"
 
@@ -104,3 +106,9 @@ Storage failure: 503 `{ "error": "Could not load attendance." }`.
 @verbinclude router.js
 
 @verbinclude pages.js
+
+@verbinclude formPage.js
+
+@verbinclude historyPage.js
+
+@verbinclude pageLayout.js

@@ -8,7 +8,7 @@ Upstream: https://github.com/JGreyScales/C3L
 
 Branch: `feature/attendance-sprint-1`
 
-Candidate tag: `module10-sprint1-v0.1.0-rc.2`
+Candidate tag: `module10-sprint1-v0.1.0-rc.3`
 
 Date: October 16, 2026. This is a tested local prototype candidate awaiting team review, not a
 claim that the fork's main branch or class repository has been updated.
@@ -24,9 +24,9 @@ attendance implementation; these are new features/enhancements, not invented pri
 
 ## Known issues and unfinished work
 
-- #4: final submission-form and release metadata checks (Arda).
+- #4: form UI, final submission-form and release metadata checks (Arda).
 - #8: collaborative SRS ID mapping/update and final regression verification (Nasir).
-- #9: real teammate review, use-instruction check and demo (Jaspreet).
+- #9: history UI, real teammate review, use-instruction check and demo (Jaspreet).
 - Gera owns the technical review/corrections for #1/#3; Nasir also reviews #2. Their GitHub
   assignments remain pending account information. These are planned responsibilities.
 - #5: authentication, instructor permissions and course/enrollment validation are not integrated.
@@ -48,6 +48,9 @@ functions in the supplied brief. The brief does not supply official requirement 
 6. Restarting keeps the marks in `src/modules/10-attendance/data/attendance.sqlite` (git-ignored).
 
 The module is JavaScript and uses Bun's native SQLite API. No dependency or common router changes.
+The form and history views are separate small files for Arda/Jaspreet's UI tasks. Gera owns the
+write/validation path and Nasir the read/filter/API path. The 10-slide English presentation and
+four individual rehearsal sheets cover approximately 13 minutes including questions.
 
 ## Regression testing
 

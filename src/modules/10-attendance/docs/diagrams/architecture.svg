@@ -20,9 +20,9 @@
 <text x="524" y="144" font-family="Arial" font-size="14" fill="#334155">Validate requests</text>
 <text x="524" y="167" font-family="Arial" font-size="14" fill="#334155">HTML or JSON</text>
 <rect x="510" y="270" width="200" height="100" rx="6" fill="#eff6ff" stroke="#64748b"/>
-<text x="524" y="297" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">pages.js</text>
-<text x="524" y="324" font-family="Arial" font-size="14" fill="#334155">Escaped HTML</text>
-<text x="524" y="347" font-family="Arial" font-size="14" fill="#334155">Form and history</text>
+<text x="524" y="297" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">Page views</text>
+<text x="524" y="324" font-family="Arial" font-size="14" fill="#334155">formPage.js</text>
+<text x="524" y="347" font-family="Arial" font-size="14" fill="#334155">historyPage.js</text>
 <rect x="760" y="90" width="180" height="100" rx="6" fill="#eff6ff" stroke="#64748b"/>
 <text x="774" y="117" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">AttendanceStore</text>
 <text x="774" y="144" font-family="Arial" font-size="14" fill="#334155">Parameterized SQL</text>

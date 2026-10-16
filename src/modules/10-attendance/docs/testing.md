@@ -1,7 +1,8 @@
 # Sprint 1 test results
 
-Executed October 16, 2026 on Windows with Bun 1.4.3. Tested code commit: `e04b171`.
+Executed October 16, 2026 on Windows with Bun 1.4.3. Tested code commit: `d1810dc`.
 All Module 10 application and test code is JavaScript.
+The form/history view split preserves behavior. The full 25/81-test runs passed after the split.
 
 ## Automated results
 

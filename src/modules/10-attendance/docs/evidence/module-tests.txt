@@ -1,37 +1,37 @@
 bun test v1.4.3 (c6da4a4d3)
 
 src\modules\10-attendance\attendance.test.js:
-(pass) attendance validation > VAL-01 accepts all three attendance statuses [0.46ms]
-(pass) attendance validation > VAL-02 rejects blank and oversized IDs [0.08ms]
-(pass) attendance validation > VAL-03 rejects impossible dates and accepts leap days [0.06ms]
-(pass) attendance validation > VAL-04 rejects unknown status and long notes [0.03ms]
-(pass) attendance validation > VAL-05 checks history dates and ID lengths [0.08ms]
+(pass) attendance validation > VAL-01 accepts all three attendance statuses [1.66ms]
+(pass) attendance validation > VAL-02 rejects blank and oversized IDs [0.11ms]
+(pass) attendance validation > VAL-03 rejects impossible dates and accepts leap days [0.08ms]
+(pass) attendance validation > VAL-04 rejects unknown status and long notes [0.04ms]
+(pass) attendance validation > VAL-05 checks history dates and ID lengths [0.14ms]
 
 src\modules\10-attendance\router.test.js:
-(pass) attendance routes through the shared prefix > HTTP-01 serves the form as HTML through finishResponse [11.28ms]
-(pass) attendance routes through the shared prefix > HTTP-02 saves and retrieves JSON for each status [11.24ms]
-(pass) attendance routes through the shared prefix > HTTP-03 rejects malformed or missing JSON fields [6.51ms]
-(pass) attendance routes through the shared prefix > HTTP-04 rejects invalid date, blank ID and unsupported status [3.25ms]
-(pass) attendance routes through the shared prefix > HTTP-05 form submission redirects after saving [5.06ms]
-(pass) attendance routes through the shared prefix > HTTP-06 form errors preserve escaped values [1.95ms]
-(pass) attendance routes through the shared prefix > HTTP-07 history escapes stored notes and IDs [3.54ms]
-(pass) attendance routes through the shared prefix > HTTP-08 validates date filters for both history endpoints [1.90ms]
-(pass) attendance routes through the shared prefix > HTTP-09 filters records and shows an empty state [3.09ms]
-(pass) attendance routes through the shared prefix > HTTP-10 corrects an existing mark through the API [3.09ms]
-(pass) attendance routes through the shared prefix > HTTP-11 uses a friendly error when storage fails [2.60ms]
-(pass) APP-01 discovers Module 10 and keeps the main site working [414.48ms]
+(pass) attendance routes through the shared prefix > HTTP-01 serves the form as HTML through finishResponse [13.66ms]
+(pass) attendance routes through the shared prefix > HTTP-02 saves and retrieves JSON for each status [15.39ms]
+(pass) attendance routes through the shared prefix > HTTP-03 rejects malformed or missing JSON fields [9.35ms]
+(pass) attendance routes through the shared prefix > HTTP-04 rejects invalid date, blank ID and unsupported status [3.53ms]
+(pass) attendance routes through the shared prefix > HTTP-05 form submission redirects after saving [6.12ms]
+(pass) attendance routes through the shared prefix > HTTP-06 form errors preserve escaped values [2.95ms]
+(pass) attendance routes through the shared prefix > HTTP-07 history escapes stored notes and IDs [4.45ms]
+(pass) attendance routes through the shared prefix > HTTP-08 validates date filters for both history endpoints [2.27ms]
+(pass) attendance routes through the shared prefix > HTTP-09 filters records and shows an empty state [3.18ms]
+(pass) attendance routes through the shared prefix > HTTP-10 corrects an existing mark through the API [3.44ms]
+(pass) attendance routes through the shared prefix > HTTP-11 uses a friendly error when storage fails [2.89ms]
+(pass) APP-01 discovers Module 10 and keeps the main site working [216.16ms]
 
 src\modules\10-attendance\store.test.js:
-(pass) attendance storage > DB-01 starts with an empty history [0.46ms]
-(pass) attendance storage > DB-02 saves trimmed IDs and notes [0.45ms]
-(pass) attendance storage > DB-03 corrects a mark without creating a duplicate [0.55ms]
-(pass) attendance storage > DB-04 keeps different students, courses and dates separate [0.48ms]
-(pass) attendance storage > DB-05 combines exact ID filters with inclusive date limits [0.49ms]
-(pass) attendance storage > DB-06 treats SQL-looking IDs as literal data [0.44ms]
-(pass) attendance storage > DB-07 rejects invalid data before it reaches SQLite [0.39ms]
-(pass) attendance storage > DB-08 retains records after closing and reopening a file database [14.43ms]
+(pass) attendance storage > DB-01 starts with an empty history [0.51ms]
+(pass) attendance storage > DB-02 saves trimmed IDs and notes [1.00ms]
+(pass) attendance storage > DB-03 corrects a mark without creating a duplicate [0.71ms]
+(pass) attendance storage > DB-04 keeps different students, courses and dates separate [0.59ms]
+(pass) attendance storage > DB-05 combines exact ID filters with inclusive date limits [0.96ms]
+(pass) attendance storage > DB-06 treats SQL-looking IDs as literal data [1.06ms]
+(pass) attendance storage > DB-07 rejects invalid data before it reaches SQLite [0.81ms]
+(pass) attendance storage > DB-08 retains records after closing and reopening a file database [15.15ms]
 
  25 pass
  0 fail
  88 expect() calls
-Ran 25 tests across 3 files. [639.00ms]
+Ran 25 tests across 3 files. [434.00ms]

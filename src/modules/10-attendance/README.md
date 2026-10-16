@@ -35,7 +35,10 @@ participation scores, reports and statistics are outside Sprint 1.
 | `router.js` | HTML and JSON routes |
 | `attendance.js` | Status labels and input validation |
 | `store.js` | AttendanceStore class and parameterized SQLite queries |
-| `pages.js` | HTML form, errors and history table |
+| `formPage.js` | Attendance form UI (Arda's assigned area) |
+| `historyPage.js` | History table/filter UI (Jaspreet's assigned area) |
+| `pageLayout.js` | Shared layout and accessible validation messages |
+| `pages.js` | Exports both page views for the router |
 | `*.test.js` | Unit, storage and integration tests |
 | `docs/` | Requirements proposal, design, sprint plan, testing evidence and submissions |
 
@@ -59,3 +62,7 @@ The design pages document the JavaScript API explicitly; no TypeScript conversio
 
 See [Sprint 1 plan](docs/sprint-1.md), [SRS update proposal](docs/srs-update.md),
 [design and API](docs/design.md) and [test results](docs/testing.md).
+
+The [four-person work plan](docs/team-work-plan.md) assigns the small UI sections to Arda/Jaspreet
+and balanced write/read backend sections to Gera/Nasir. The presentation and individual English
+rehearsal sheets are in `docs/presentation/`.
