@@ -1,2 +1,4 @@
+# Local SQLite data is created at runtime and must not be committed with the source.
 data/
+# Doxygen output is reproducible from the source comments and configuration.
 docs/generated/

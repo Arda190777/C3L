@@ -1,3 +1,4 @@
+# Treat submitted documents, archives and images as binary files rather than text diffs.
 *.pdf binary
 *.zip binary
 *.jpg binary

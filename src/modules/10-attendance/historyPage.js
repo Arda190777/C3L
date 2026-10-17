@@ -4,13 +4,27 @@
 import { escapeHtml } from '../../core/pages'
 import { statusLabels } from './attendance'
 import { page, errorSummary, fieldError, errorAttributes } from './pageLayout'
+/**
+ * Builds the history/filter UI from records already fetched by the router.
+ * This view displays results; it does not build SQL, filter records or save attendance.
+ * errors controls validation messages, and saved controls the confirmation banner.
+ */
 export function renderHistory(base, records, filter, errors = {}, saved = false) {
+  // Each entry contains [property name, visible label, input type]. The map below
+  // destructures these entries to build all four filter controls without repeating markup.
   const fields = [
     ['courseId', 'Course ID', 'text'],
     ['studentId', 'Student ID', 'text'],
     ['from', 'From date', 'date'],
     ['to', 'To date', 'date'],
   ]
+  // GET sends filters in the URL so the router can read them as query parameters.
+  // filter[field] keeps current values in the controls; Clear filters uses the bare
+  // history URL to remove those parameters. Displayed values are HTML-escaped.
+  // The result section chooses, in order: an error message, a table, or an empty state.
+  // records.map builds one row per saved mark; join('') combines rows without commas.
+  // statusLabels converts stored codes into readable labels, and blank notes show '-'.
+  // The store supplies newest-first ordering; this function preserves that order.
   return page(
     base,
     'Attendance history',

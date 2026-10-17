@@ -1,3 +1,5 @@
+// Storage tests call AttendanceStore directly, without the HTTP routes.
+// Most use memory. The last test checks persistence with a temporary file.
 import { afterEach, beforeEach, describe, expect, test } from 'bun:test'
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -21,6 +23,7 @@ describe('attendance storage', () => {
       status: 'present',
       notes: '',
     }
+    // Blank filter fields allow all records.
     filter = {
       courseId: '',
       studentId: '',
@@ -29,6 +32,7 @@ describe('attendance storage', () => {
     }
   })
 
+  // Clean up the connection and temporary file, even when a test fails.
   afterEach(() => {
     store.close()
     if (temporaryFolder !== null) {
@@ -56,6 +60,7 @@ describe('attendance storage', () => {
   })
 
   test('DB-03 corrects a mark without creating a duplicate', () => {
+    // The correction should keep the same ID and replace the status and notes.
     const first = store.save(mark)
 
     mark.status = 'excused'
@@ -89,6 +94,7 @@ describe('attendance storage', () => {
   })
 
   test('DB-05 combines exact ID filters with inclusive date limits', () => {
+    // Include nearby dates and different IDs to check that every filter applies.
     store.save(mark)
 
     mark.date = '2026-10-17'
@@ -121,6 +127,7 @@ describe('attendance storage', () => {
   })
 
   test('DB-06 treats SQL-looking IDs as literal data', () => {
+    // Bound SQL values keep quotes and SQL-looking text as part of the ID.
     mark.studentId = "S1001' OR 1=1 --"
     store.save(mark)
 
@@ -134,6 +141,7 @@ describe('attendance storage', () => {
   })
 
   test('DB-07 rejects invalid data before it reaches SQLite', () => {
+    // toThrow runs the supplied function and checks its expected error.
     mark.status = 'bad'
     expect(() => store.save(mark)).toThrow('Invalid attendance')
 
@@ -155,6 +163,7 @@ describe('attendance storage', () => {
     store.save(mark)
     store.close()
 
+    // Opening a new connection to the file models restarting the application.
     store = new AttendanceStore(filename)
     const records = store.list(filter)
     expect(records[0].studentId).toBe('S1001')

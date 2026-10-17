@@ -1,3 +1,5 @@
+// Integration tests send Request objects through the router and real SQLite storage.
+// They check HTTP statuses, response formats and resulting data without opening a port.
 import { afterEach, beforeEach, describe, expect, test } from 'bun:test'
 import { Elysia } from 'elysia'
 import { createApp } from '../../app'
@@ -19,12 +21,16 @@ const mark = {
 describe('attendance routes through the shared prefix', () => {
   let store
   let handle
+  // A fresh in-memory database isolates every test from the others and the demo file.
+  // Mount under the real prefix so links/redirects are tested as they appear in C3L.
   beforeEach(() => {
     store = new AttendanceStore(':memory:')
     const app = new Elysia().group(base, (app) => app.use(createAttendanceRouter(store, base)))
     handle = (request) => app.handle(request)
   })
   afterEach(() => store.close())
+  // Build full mounted URLs. The post helper serializes a JavaScript object into
+  // JSON and declares its content type, matching a real API client's request.
   const request = (path, init) => new Request(`http://localhost${base}${path}`, init)
   const post = (data) =>
     request('/api/attendance', {
@@ -33,6 +39,7 @@ describe('attendance routes through the shared prefix', () => {
       body: JSON.stringify(data),
     })
   test('HTTP-01 serves the form as HTML through finishResponse', async () => {
+    // Include the shared response helper here because it supplies the HTML content type.
     const req = request('')
     const response = await finishResponse(req, await handle(req))
     expect(response.status).toBe(200)
@@ -50,6 +57,7 @@ describe('attendance routes through the shared prefix', () => {
     expect((await readBody(response)).records).toHaveLength(3)
   })
   test('HTTP-03 rejects malformed or missing JSON fields', async () => {
+    // These cases fail parsing/schema checks before attendance business rules run.
     expect((await handle(post({}))).status).toBe(422)
     expect((await handle(post({ ...mark, courseId: 123 }))).status).toBe(422)
     expect(
@@ -76,6 +84,8 @@ describe('attendance routes through the shared prefix', () => {
     expect((await readBody(await handle(request('/api/attendance')))).records).toEqual([])
   })
   test('HTTP-05 form submission redirects after saving', async () => {
+    // URLSearchParams sends form-encoded data. Check the redirect, then request its
+    // destination explicitly because an in-process router call does not follow it.
     const response = await handle(
       request('/attendance', {
         method: 'POST',
@@ -92,6 +102,8 @@ describe('attendance routes through the shared prefix', () => {
     expect(html).toContain('S1001')
   })
   test('HTTP-06 form errors preserve escaped values', async () => {
+    // Submit HTML-like text alongside an invalid date. The returned form must retain
+    // the text safely, and mark invalid controls for assistive technology.
     const response = await handle(
       request('/attendance', {
         method: 'POST',
@@ -129,6 +141,7 @@ describe('attendance routes through the shared prefix', () => {
     )
   })
   test('HTTP-10 corrects an existing mark through the API', async () => {
+    // The same course/student/date must update one record, not create a second mark.
     await handle(post(mark))
     await handle(post({ ...mark, status: 'unexcused' }))
     const records = (await readBody(await handle(request('/api/attendance')))).records
@@ -136,6 +149,8 @@ describe('attendance routes through the shared prefix', () => {
     expect(records[0].status).toBe('unexcused')
   })
   test('HTTP-11 uses a friendly error when storage fails', async () => {
+    // Inject a deliberately failing store to exercise error handling reliably.
+    // The response should report 503 without revealing the private exception text.
     class UnavailableStore extends AttendanceStore {
       save() {
         throw new Error('private storage path')
@@ -157,6 +172,8 @@ describe('attendance routes through the shared prefix', () => {
     expect((await app.handle(new Request('http://localhost/history'))).status).toBe(503)
   })
 })
+// This final case uses the real loader/main app, verifying discovery of index.js
+// and that attendance remains compatible with the home page and shared 404 handling.
 test('APP-01 discovers Module 10 and keeps the main site working', async () => {
   const app = await createApp()
   const home = await app.fetch(new Request('http://localhost/'))
