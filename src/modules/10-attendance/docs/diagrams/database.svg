@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 410" role="img" aria-label="Attendance data model">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#475569"/></marker></defs>
+<rect width="960" height="410" fill="white"/>
+<text x="24" y="32" font-family="Arial" font-size="20" font-weight="bold" fill="#1e293b">Attendance data model</text>
+<rect x="180" y="65" width="600" height="300" rx="6" fill="#eff6ff" stroke="#64748b"/>
+<text x="194" y="92" font-family="Arial" font-size="16" font-weight="bold" fill="#1e293b">attendance</text>
+<text x="194" y="119" font-family="Arial" font-size="14" fill="#334155">id: INTEGER PRIMARY KEY</text>
+<text x="194" y="142" font-family="Arial" font-size="14" fill="#334155">course_id: TEXT NOT NULL</text>
+<text x="194" y="165" font-family="Arial" font-size="14" fill="#334155">student_id: TEXT NOT NULL</text>
+<text x="194" y="188" font-family="Arial" font-size="14" fill="#334155">attendance_date: TEXT NOT NULL (YYYY-MM-DD)</text>
+<text x="194" y="211" font-family="Arial" font-size="14" fill="#334155">status: TEXT CHECK (present, excused, unexcused)</text>
+<text x="194" y="234" font-family="Arial" font-size="14" fill="#334155">notes: TEXT, updated_at: TEXT</text>
+<text x="194" y="257" font-family="Arial" font-size="14" fill="#334155">UNIQUE (course_id, student_id, attendance_date)</text>
+</svg>

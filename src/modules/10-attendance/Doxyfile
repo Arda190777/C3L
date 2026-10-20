@@ -1,0 +1,25 @@
+# Run from the repository root: doxygen src/modules/10-attendance/Doxyfile
+# Doxygen reads source comments and design pages to produce browsable module documentation.
+PROJECT_NAME = "C3L Module 10 - Attendance"
+PROJECT_NUMBER = "Sprint 1 / v0.1.0-rc.3"
+# Generated output stays inside this module; .gitignore excludes the generated directory.
+OUTPUT_DIRECTORY = src/modules/10-attendance/docs/generated
+INPUT = src/modules/10-attendance src/modules/10-attendance/docs/design.md src/modules/10-attendance/docs/srs-update.md src/modules/10-attendance/docs/testing.md
+USE_MDFILE_AS_MAINPAGE = src/modules/10-attendance/docs/design.md
+# Document the JavaScript implementation; test files are verified separately by Bun.
+FILE_PATTERNS = *.js
+EXCLUDE_PATTERNS = *.test.js
+EXTENSION_MAPPING = js=JavaScript
+EXTRACT_ALL = YES
+# Include source listings and resolve examples/diagrams relative to this module's folders.
+SOURCE_BROWSER = YES
+EXAMPLE_PATH = src/modules/10-attendance
+IMAGE_PATH = src/modules/10-attendance/docs/diagrams
+# Produce HTML for the design submission; no LaTeX output or Graphviz dependency is needed.
+GENERATE_HTML = YES
+GENERATE_LATEX = NO
+HAVE_DOT = NO
+QUIET = YES
+# Write documentation warnings to a file for review after generation.
+WARN_LOGFILE = src/modules/10-attendance/docs/generated/warnings.txt
+FULL_PATH_NAMES = NO
