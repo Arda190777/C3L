@@ -163,3 +163,16 @@ test('DB-08 file database keeps records after reopening', () => {
   const records = store.list(filter)
   expect(records[0].studentId).toBe('S1001')
 })
+
+test('DB-09 counts statuses for one course after a correction', () => {
+  store.save(mark)
+  store.save({ ...mark, studentId: 'S1002' })
+  store.save({ ...mark, studentId: 'S1003', status: 'excused' })
+  store.save({ ...mark, courseId: 'PROG4000', status: 'unexcused' })
+
+  expect(store.countByStatus(mark.courseId)).toEqual({ present: 2, excused: 1, unexcused: 0 })
+
+  store.save({ ...mark, status: 'unexcused' })
+
+  expect(store.countByStatus(mark.courseId)).toEqual({ present: 1, excused: 1, unexcused: 1 })
+})

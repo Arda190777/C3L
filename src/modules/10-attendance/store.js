@@ -114,6 +114,18 @@ export class AttendanceStore {
     return matchingRecords
   }
 
+  /** Counts recorded marks by status for one course. */
+  countByStatus(courseId) {
+    const normalizedCourseId = courseId.trim()
+    const sql = `SELECT
+      COUNT(*) FILTER (WHERE status = 'present') AS present,
+      COUNT(*) FILTER (WHERE status = 'excused') AS excused,
+      COUNT(*) FILTER (WHERE status = 'unexcused') AS unexcused
+      FROM attendance
+      WHERE course_id = ?`
+    return this.openDatabase().query(sql).get(normalizedCourseId)
+  }
+
   // Closing twice is safe. Setting null allows the store to open again later.
   close() {
     if (this.database !== null) {

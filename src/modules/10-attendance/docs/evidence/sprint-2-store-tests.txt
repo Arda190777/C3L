@@ -1,0 +1,21 @@
+$ bun test src/modules/10-attendance/store.test.js
+
+bun test v1.4.4 (38afee6c8)
+
+src\modules\10-attendance\store.test.js:
+(pass) DB-01 new database has no records [1.07ms]
+(pass) DB-02 saves a record and removes extra spaces [0.56ms]
+(pass) DB-03 saving the same mark updates it [0.36ms]
+(pass) DB-04 different students, courses and dates create separate records [0.27ms]
+(pass) DB-05a course filter finds the selected course [0.21ms]
+(pass) DB-05b student filter needs the complete student ID [0.20ms]
+(pass) DB-05c date filter includes the selected day [0.28ms]
+(pass) DB-06 SQL-looking text stays part of the student ID [0.20ms]
+(pass) DB-07 invalid input gives an error [0.23ms]
+(pass) DB-08 file database keeps records after reopening [13.29ms]
+(pass) DB-09 counts statuses for one course after a correction [0.84ms]
+
+ 11 pass
+ 0 fail
+ 27 expect() calls
+Ran 11 tests across 1 file. [105.00ms]
