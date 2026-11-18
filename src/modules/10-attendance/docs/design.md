@@ -87,12 +87,27 @@ Success: 200 `{ "records": [...] }`, sorted by date descending, then course and 
 No matches: 200 `{ "records": [] }`. Invalid dates/reversed range: 422 `{ "errors": {...} }`.
 Storage failure: 503 `{ "error": "Could not load attendance." }`.
 
+### GET /10-attendance/api/attendance/summary
+
+Required query parameter: `courseId`, trimmed and validated as a nonempty ID of at most 50
+characters. IDs match exactly and are case-sensitive.
+Example: `/10-attendance/api/attendance/summary?courseId=PROG3000`.
+
+Success: 200 `{ "courseId": "PROG3000", "counts": { "present": 2, "excused": 1, "unexcused": 0 } }`.
+All three counts are zero when the course has no records. Counts cover all recorded dates and
+reflect corrected marks. This read-only endpoint uses `AttendanceStore.countByStatus()`;
+it does not calculate attendance percentages.
+
+Missing/blank IDs: 422 `{ "errors": { "courseId": "Enter an ID between 1 and 50 characters." } }`.
+Oversized IDs: 422 `{ "errors": { "courseId": "Use 50 characters or fewer." } }`.
+Storage failure: 503 `{ "error": "Could not load attendance." }`.
+
 ## Limits and decisions
 
 - Built-in `bun:sqlite` avoids a new dependency or Docker service for this sprint.
 - Storage is local to one server; shared deployment and backups need a later decision.
 - API and pages currently have no authorization, roster validation or pagination (#5 and future planning).
-- Participation and reports/statistics remain unimplemented (#6).
+- Participation, reports and attendance percentages remain unimplemented (#6); course status counts are available through the summary API.
 - The class collaborative SRS has not been edited: its link and official IDs are still needed (#8).
 
 ## Source files

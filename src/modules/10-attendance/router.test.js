@@ -148,6 +148,69 @@ describe('attendance routes through the shared prefix', () => {
     expect(records).toHaveLength(1)
     expect(records[0].status).toBe('unexcused')
   })
+  test('HTTP-12 summary returns all statuses for a trimmed course ID without changing records', async () => {
+    for (const [i, status] of attendanceStatuses.entries()) {
+      await handle(post({ ...mark, studentId: `S${i}`, status }))
+    }
+    const before = await readBody(await handle(request('/api/attendance')))
+    const response = await handle(request('/api/attendance/summary?courseId=%20PROG3000%20'))
+    expect(response.status).toBe(200)
+    expect(response.headers.get('content-type')).toContain('application/json')
+    expect(await readBody(response)).toEqual({
+      courseId: 'PROG3000',
+      counts: { present: 1, excused: 1, unexcused: 1 },
+    })
+    expect(await readBody(await handle(request('/api/attendance')))).toEqual(before)
+  })
+  test('HTTP-13 summary rejects missing, empty, blank and oversized course IDs', async () => {
+    const cases = [
+      ['', 'Enter an ID between 1 and 50 characters.'],
+      ['?courseId=', 'Enter an ID between 1 and 50 characters.'],
+      ['?courseId=%20%20', 'Enter an ID between 1 and 50 characters.'],
+      [`?courseId=${'x'.repeat(51)}`, 'Use 50 characters or fewer.'],
+    ]
+    for (const [query, message] of cases) {
+      const response = await handle(request(`/api/attendance/summary${query}`))
+      expect(response.status).toBe(422)
+      expect(await readBody(response)).toEqual({
+        errors: { courseId: message },
+      })
+    }
+    expect(store.database).toBeNull()
+  })
+  test('HTTP-14 summary isolates courses and matches IDs exactly', async () => {
+    await handle(post(mark))
+    await handle(post({ ...mark, courseId: 'PROG4000', status: 'excused' }))
+    await handle(post({ ...mark, courseId: 'prog3000', status: 'unexcused' }))
+    const response = await handle(request('/api/attendance/summary?courseId=PROG3000'))
+    expect(response.status).toBe(200)
+    expect((await readBody(response)).counts).toEqual({ present: 1, excused: 0, unexcused: 0 })
+  })
+  test('HTTP-15 summary reflects a corrected attendance mark', async () => {
+    await handle(post(mark))
+    await handle(post({ ...mark, status: 'unexcused' }))
+    const response = await handle(request('/api/attendance/summary?courseId=PROG3000'))
+    expect(response.status).toBe(200)
+    expect((await readBody(response)).counts).toEqual({ present: 0, excused: 0, unexcused: 1 })
+  })
+  test('HTTP-16 summary returns zero counts for an unrecorded course', async () => {
+    await handle(post({ ...mark, courseId: 'PROG4000' }))
+    const response = await handle(request(`/api/attendance/summary?courseId=${'x'.repeat(50)}`))
+    expect(response.status).toBe(200)
+    expect(await readBody(response)).toEqual({
+      courseId: 'x'.repeat(50),
+      counts: { present: 0, excused: 0, unexcused: 0 },
+    })
+  })
+  test('HTTP-17 summary returns a friendly JSON error when counting fails', async () => {
+    store.countByStatus = () => {
+      throw new Error('private storage path')
+    }
+    const response = await handle(request('/api/attendance/summary?courseId=PROG3000'))
+    expect(response.status).toBe(503)
+    expect(response.headers.get('content-type')).toContain('application/json')
+    expect(await readBody(response)).toEqual({ error: 'Could not load attendance.' })
+  })
   test('HTTP-11 uses a friendly error when storage fails', async () => {
     // Inject a deliberately failing store to exercise error handling reliably.
     // The response should report 503 without revealing the private exception text.

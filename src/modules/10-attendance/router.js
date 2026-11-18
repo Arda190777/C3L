@@ -102,6 +102,22 @@ export function createAttendanceRouter(store, base) {
         return { error: 'Could not load attendance.' }
       }
     })
+    .get('/api/attendance/summary', ({ query, set }) => {
+      const courseId = (query.courseId ?? '').trim()
+      const errors = validateFilter({ courseId, studentId: '', from: '', to: '' })
+      // History allows an omitted course; a course summary requires one.
+      if (!courseId) errors.courseId = 'Enter an ID between 1 and 50 characters.'
+      if (Object.keys(errors).length) {
+        set.status = 422
+        return { errors }
+      }
+      try {
+        return { courseId, counts: store.countByStatus(courseId) }
+      } catch {
+        set.status = 503
+        return { error: 'Could not load attendance.' }
+      }
+    })
     .post(
       '/api/attendance',
       ({ body, set }) => {
