@@ -1,0 +1,1122 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "C3L Module 10 - Attendance and Participation API",
+    "version": "0.3.0",
+    "contact": {
+      "name": "C3L Module 10 team",
+      "url": "https://github.com/Arda190777/C3L/issues"
+    },
+    "description": "Sprint 3 local classroom candidate. No role/enrollment enforcement or production access control. Use fictional data. All new endpoints are additive. Attendance and participation corrections retain the same ID."
+  },
+  "servers": [
+    {
+      "url": "/10-attendance",
+      "description": "Shared C3L module prefix"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Attendance module",
+      "description": "Attendance, participation, statistics and reports."
+    }
+  ],
+  "security": [],
+  "paths": {
+    "/api/attendance": {
+      "get": {
+        "summary": "Read filtered attendance",
+        "description": "Read filtered attendance. Local classroom prototype. Use fictional IDs only.",
+        "operationId": "listAttendance",
+        "tags": ["Attendance module"],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["records"],
+                  "properties": {
+                    "records": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "courseId",
+                          "studentId",
+                          "date",
+                          "status",
+                          "id",
+                          "notes",
+                          "updatedAt"
+                        ],
+                        "properties": {
+                          "courseId": {
+                            "type": "string",
+                            "maxLength": 200,
+                            "description": "1-50 characters after trimming."
+                          },
+                          "studentId": {
+                            "type": "string",
+                            "maxLength": 200,
+                            "description": "1-50 characters after trimming."
+                          },
+                          "date": {
+                            "type": "string",
+                            "format": "date",
+                            "description": "A real YYYY-MM-DD calendar date."
+                          },
+                          "status": {
+                            "type": "string",
+                            "enum": ["present", "excused", "unexcused"]
+                          },
+                          "notes": {
+                            "type": "string",
+                            "maxLength": 1000,
+                            "default": "",
+                            "description": "Optional. At most 300 characters after trimming."
+                          },
+                          "id": {
+                            "type": "integer"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid fields or date range",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Business errors use errors (field messages) or error (storage message). Schema/parser failures may use the Elysia error format.",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Storage unavailable. No internal paths are exposed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Business errors use errors (field messages) or error (storage message). Schema/parser failures may use the Elysia error format.",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "query",
+            "required": false,
+            "description": "Exact course ID, trimmed, at most 50 characters.",
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          {
+            "name": "studentId",
+            "in": "query",
+            "required": false,
+            "description": "Exact student ID, trimmed, at most 50 characters.",
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "description": "Inclusive start date. Must be on or before to.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "description": "Inclusive end date.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ]
+      },
+      "post": {
+        "summary": "Save or correct a daily attendance mark",
+        "description": "Save or correct a daily attendance mark. Local classroom prototype. Use fictional IDs only.",
+        "operationId": "saveAttendance",
+        "tags": ["Attendance module"],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["record"],
+                  "properties": {
+                    "record": {
+                      "type": "object",
+                      "required": [
+                        "courseId",
+                        "studentId",
+                        "date",
+                        "status",
+                        "id",
+                        "notes",
+                        "updatedAt"
+                      ],
+                      "properties": {
+                        "courseId": {
+                          "type": "string",
+                          "maxLength": 200,
+                          "description": "1-50 characters after trimming."
+                        },
+                        "studentId": {
+                          "type": "string",
+                          "maxLength": 200,
+                          "description": "1-50 characters after trimming."
+                        },
+                        "date": {
+                          "type": "string",
+                          "format": "date",
+                          "description": "A real YYYY-MM-DD calendar date."
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": ["present", "excused", "unexcused"]
+                        },
+                        "notes": {
+                          "type": "string",
+                          "maxLength": 1000,
+                          "default": "",
+                          "description": "Optional. At most 300 characters after trimming."
+                        },
+                        "id": {
+                          "type": "integer"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid fields or date range",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Business errors use errors (field messages) or error (storage message). Schema/parser failures may use the Elysia error format.",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Storage unavailable. No internal paths are exposed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Business errors use errors (field messages) or error (storage message). Schema/parser failures may use the Elysia error format.",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["courseId", "studentId", "date", "status"],
+                "properties": {
+                  "courseId": {
+                    "type": "string",
+                    "maxLength": 200,
+                    "description": "1-50 characters after trimming."
+                  },
+                  "studentId": {
+                    "type": "string",
+                    "maxLength": 200,
+                    "description": "1-50 characters after trimming."
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "A real YYYY-MM-DD calendar date."
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": ["present", "excused", "unexcused"]
+                  },
+                  "notes": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "default": "",
+                    "description": "Optional. At most 300 characters after trimming."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/participation": {
+      "get": {
+        "summary": "Read filtered participation entries",
+        "description": "Read filtered participation entries. Local classroom prototype. Use fictional IDs only.",
+        "operationId": "listParticipation",
+        "tags": ["Attendance module"],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["records"],
+                  "properties": {
+                    "records": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "courseId",
+                          "studentId",
+                          "date",
+                          "activity",
+                          "score",
+                          "id",
+                          "notes",
+                          "updatedAt"
+                        ],
+                        "properties": {
+                          "courseId": {
+                            "type": "string",
+                            "maxLength": 200,
+                            "description": "1-50 characters after trimming."
+                          },
+                          "studentId": {
+                            "type": "string",
+                            "maxLength": 200,
+                            "description": "1-50 characters after trimming."
+                          },
+                          "date": {
+                            "type": "string",
+                            "format": "date",
+                            "description": "A real YYYY-MM-DD calendar date."
+                          },
+                          "notes": {
+                            "type": "string",
+                            "maxLength": 1000,
+                            "default": "",
+                            "description": "Optional. At most 300 characters after trimming."
+                          },
+                          "activity": {
+                            "type": "string",
+                            "maxLength": 300,
+                            "description": "1-100 characters after trimming. Case-sensitive activity key."
+                          },
+                          "score": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 5
+                          },
+                          "id": {
+                            "type": "integer"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid fields or date range",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Business errors use errors (field messages) or error (storage message). Schema/parser failures may use the Elysia error format.",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Storage unavailable. No internal paths are exposed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Business errors use errors (field messages) or error (storage message). Schema/parser failures may use the Elysia error format.",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "query",
+            "required": false,
+            "description": "Exact course ID, trimmed, at most 50 characters.",
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          {
+            "name": "studentId",
+            "in": "query",
+            "required": false,
+            "description": "Exact student ID, trimmed, at most 50 characters.",
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "description": "Inclusive start date. Must be on or before to.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "description": "Inclusive end date.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ]
+      },
+      "post": {
+        "summary": "Save or correct an activity score",
+        "description": "Save or correct an activity score. Local classroom prototype. Use fictional IDs only.",
+        "operationId": "saveParticipation",
+        "tags": ["Attendance module"],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["record"],
+                  "properties": {
+                    "record": {
+                      "type": "object",
+                      "required": [
+                        "courseId",
+                        "studentId",
+                        "date",
+                        "activity",
+                        "score",
+                        "id",
+                        "notes",
+                        "updatedAt"
+                      ],
+                      "properties": {
+                        "courseId": {
+                          "type": "string",
+                          "maxLength": 200,
+                          "description": "1-50 characters after trimming."
+                        },
+                        "studentId": {
+                          "type": "string",
+                          "maxLength": 200,
+                          "description": "1-50 characters after trimming."
+                        },
+                        "date": {
+                          "type": "string",
+                          "format": "date",
+                          "description": "A real YYYY-MM-DD calendar date."
+                        },
+                        "notes": {
+                          "type": "string",
+                          "maxLength": 1000,
+                          "default": "",
+                          "description": "Optional. At most 300 characters after trimming."
+                        },
+                        "activity": {
+                          "type": "string",
+                          "maxLength": 300,
+                          "description": "1-100 characters after trimming. Case-sensitive activity key."
+                        },
+                        "score": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 5
+                        },
+                        "id": {
+                          "type": "integer"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid fields or date range",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Business errors use errors (field messages) or error (storage message). Schema/parser failures may use the Elysia error format.",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Storage unavailable. No internal paths are exposed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Business errors use errors (field messages) or error (storage message). Schema/parser failures may use the Elysia error format.",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["courseId", "studentId", "date", "activity", "score"],
+                "properties": {
+                  "courseId": {
+                    "type": "string",
+                    "maxLength": 200,
+                    "description": "1-50 characters after trimming."
+                  },
+                  "studentId": {
+                    "type": "string",
+                    "maxLength": 200,
+                    "description": "1-50 characters after trimming."
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "A real YYYY-MM-DD calendar date."
+                  },
+                  "notes": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "default": "",
+                    "description": "Optional. At most 300 characters after trimming."
+                  },
+                  "activity": {
+                    "type": "string",
+                    "maxLength": 300,
+                    "description": "1-100 characters after trimming. Case-sensitive activity key."
+                  },
+                  "score": {
+                    "oneOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 5
+                      },
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                      }
+                    ],
+                    "description": "Whole number from 0 to 5. Numeric strings from forms are accepted."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/statistics": {
+      "get": {
+        "summary": "Read attendance and participation statistics",
+        "description": "Read attendance and participation statistics. Local classroom prototype. Use fictional IDs only.",
+        "operationId": "getStatistics",
+        "tags": ["Attendance module"],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["statistics"],
+                  "properties": {
+                    "statistics": {
+                      "type": "object",
+                      "required": [
+                        "present",
+                        "excused",
+                        "unexcused",
+                        "totalMarks",
+                        "presentRate",
+                        "participationEntries",
+                        "participationPoints",
+                        "averageScore"
+                      ],
+                      "properties": {
+                        "present": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "excused": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "unexcused": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "totalMarks": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "participationEntries": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "participationPoints": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "presentRate": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 100,
+                          "description": "100 * present / totalMarks, rounded to 2 decimal places. 0 for no attendance marks. Includes excused marks in denominator."
+                        },
+                        "averageScore": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 5,
+                          "description": "Participation points / entries, rounded to 2 decimals. 0 for no entries."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid fields or date range",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Business errors use errors (field messages) or error (storage message). Schema/parser failures may use the Elysia error format.",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Storage unavailable. No internal paths are exposed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Business errors use errors (field messages) or error (storage message). Schema/parser failures may use the Elysia error format.",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "query",
+            "required": false,
+            "description": "Exact course ID, trimmed, at most 50 characters.",
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          {
+            "name": "studentId",
+            "in": "query",
+            "required": false,
+            "description": "Exact student ID, trimmed, at most 50 characters.",
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "description": "Inclusive start date. Must be on or before to.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "description": "Inclusive end date.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ]
+      }
+    },
+    "/api/reports/attendance": {
+      "get": {
+        "summary": "Read one report row per course and student",
+        "description": "Read one report row per course and student. Local classroom prototype. Use fictional IDs only.",
+        "operationId": "getAttendanceReport",
+        "tags": ["Attendance module"],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["rows"],
+                  "properties": {
+                    "rows": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "present",
+                          "excused",
+                          "unexcused",
+                          "totalMarks",
+                          "presentRate",
+                          "participationEntries",
+                          "participationPoints",
+                          "averageScore",
+                          "courseId",
+                          "studentId"
+                        ],
+                        "properties": {
+                          "present": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "excused": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "unexcused": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "totalMarks": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "participationEntries": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "participationPoints": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "presentRate": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100,
+                            "description": "100 * present / totalMarks, rounded to 2 decimal places. 0 for no attendance marks. Includes excused marks in denominator."
+                          },
+                          "averageScore": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 5,
+                            "description": "Participation points / entries, rounded to 2 decimals. 0 for no entries."
+                          },
+                          "courseId": {
+                            "type": "string"
+                          },
+                          "studentId": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid fields or date range",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Business errors use errors (field messages) or error (storage message). Schema/parser failures may use the Elysia error format.",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Storage unavailable. No internal paths are exposed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Business errors use errors (field messages) or error (storage message). Schema/parser failures may use the Elysia error format.",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "query",
+            "required": false,
+            "description": "Exact course ID, trimmed, at most 50 characters.",
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          {
+            "name": "studentId",
+            "in": "query",
+            "required": false,
+            "description": "Exact student ID, trimmed, at most 50 characters.",
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "description": "Inclusive start date. Must be on or before to.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "description": "Inclusive end date.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ]
+      }
+    },
+    "/reports/attendance.csv": {
+      "get": {
+        "summary": "Download the filtered student summary as CSV",
+        "description": "Download the filtered student summary as CSV. Local classroom prototype. Use fictional IDs only.",
+        "operationId": "downloadAttendanceReport",
+        "tags": ["Attendance module"],
+        "responses": {
+          "200": {
+            "description": "UTF-8 CSV attachment. Quoted fields double embedded quotes. Formula-leading text IDs receive an apostrophe.",
+            "headers": {
+              "Content-Disposition": {
+                "description": "attachment; filename=\"attendance-report.csv\"",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Cache-Control": {
+                "description": "no-store",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid fields or date range",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Business errors use errors (field messages) or error (storage message). Schema/parser failures may use the Elysia error format.",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Storage unavailable. No internal paths are exposed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Business errors use errors (field messages) or error (storage message). Schema/parser failures may use the Elysia error format.",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "query",
+            "required": false,
+            "description": "Exact course ID, trimmed, at most 50 characters.",
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          {
+            "name": "studentId",
+            "in": "query",
+            "required": false,
+            "description": "Exact student ID, trimmed, at most 50 characters.",
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "description": "Inclusive start date. Must be on or before to.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "description": "Inclusive end date.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

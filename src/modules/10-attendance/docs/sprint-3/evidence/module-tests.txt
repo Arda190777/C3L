@@ -1,0 +1,59 @@
+bun test v1.4.3 (c6da4a4d3)
+
+src\modules\10-attendance\attendance.test.js:
+(pass) PART-01 allows integer participation scores from zero to five [2.37ms]
+(pass) PART-02 checks activity, date, ID and notes limits [0.11ms]
+(pass) PART-03 wrong-type IDs, dates and filters return validation errors [0.13ms]
+(pass) attendance validation > VAL-01 accepts all three attendance statuses [0.10ms]
+(pass) attendance validation > VAL-02 rejects blank and oversized IDs [0.03ms]
+(pass) attendance validation > VAL-03 rejects impossible dates and accepts leap days [0.04ms]
+(pass) attendance validation > VAL-04 rejects unknown status and long notes [0.03ms]
+(pass) attendance validation > VAL-05 checks history dates and ID lengths [0.88ms]
+
+src\modules\10-attendance\router.test.js:
+(pass) attendance routes through the shared prefix > HTTP-01 serves the form as HTML through finishResponse [13.27ms]
+(pass) attendance routes through the shared prefix > HTTP-02 saves and retrieves JSON for each status [16.57ms]
+(pass) attendance routes through the shared prefix > HTTP-03 rejects malformed or missing JSON fields [8.72ms]
+(pass) attendance routes through the shared prefix > HTTP-04 rejects invalid date, blank ID and unsupported status [3.61ms]
+(pass) attendance routes through the shared prefix > HTTP-05 form submission redirects after saving [7.55ms]
+(pass) attendance routes through the shared prefix > HTTP-06 form errors preserve escaped values [3.33ms]
+(pass) attendance routes through the shared prefix > HTTP-07 history escapes stored notes and IDs [3.75ms]
+(pass) attendance routes through the shared prefix > HTTP-08 validates date filters for both history endpoints [1.98ms]
+(pass) attendance routes through the shared prefix > HTTP-09 filters records and shows an empty state [3.78ms]
+(pass) attendance routes through the shared prefix > HTTP-10 corrects an existing mark through the API [3.52ms]
+(pass) attendance routes through the shared prefix > HTTP-11 uses a friendly error when storage fails [3.26ms]
+(pass) APP-01 discovers Module 10 and keeps the main site working [141.86ms]
+(pass) Sprint 3 participation, statistics and reports > S3-HTTP-01 participation API saves, corrects and filters activities [9.98ms]
+(pass) Sprint 3 participation, statistics and reports > S3-HTTP-02 participation form redirects and safely displays stored text [4.45ms]
+(pass) Sprint 3 participation, statistics and reports > S3-HTTP-03 invalid participation returns 422 without writing a row [5.33ms]
+(pass) Sprint 3 participation, statistics and reports > S3-HTTP-04 statistics expose filtered attendance and participation totals [7.16ms]
+(pass) Sprint 3 participation, statistics and reports > S3-HTTP-05 JSON report and downloadable CSV preserve data and neutralize formulas [5.65ms]
+(pass) Sprint 3 participation, statistics and reports > S3-HTTP-06 every new read endpoint rejects reversed or impossible dates [3.91ms]
+(pass) Sprint 3 participation, statistics and reports > S3-HTTP-07 new routes give friendly storage errors without leaking details [5.48ms]
+(pass) Sprint 3 participation, statistics and reports > S3-HTTP-08 new screens have reachable links and clear empty states [4.71ms]
+
+src\modules\10-attendance\store.test.js:
+(pass) DB-01 new database has no records [0.94ms]
+(pass) DB-02 saves a record and removes extra spaces [0.82ms]
+(pass) DB-03 saving the same mark updates it [0.83ms]
+(pass) DB-04 different students, courses and dates create separate records [0.78ms]
+(pass) DB-05a course filter finds the selected course [0.78ms]
+(pass) DB-05b student filter needs the complete student ID [0.84ms]
+(pass) DB-05c date filter includes the selected day [0.74ms]
+(pass) DB-06 SQL-looking text stays part of the student ID [0.70ms]
+(pass) DB-07 invalid input gives an error [1.02ms]
+(pass) DB-08 file database keeps records after reopening [14.95ms]
+(pass) DB-09 counts statuses for one course after a correction [1.59ms]
+(pass) DB-10 course counts handle empty courses, whitespace and invalid IDs [0.92ms]
+(pass) DB-11 saves participation with trimmed values and a numeric score [0.80ms]
+(pass) DB-12 corrects the same activity but keeps different activities separate [0.82ms]
+(pass) DB-13 filters participation by course, student and inclusive dates [0.79ms]
+(pass) DB-14 reports combine attendance and participation without inventing absences [8.96ms]
+(pass) DB-15 empty summaries return zero and invalid participation is not saved [1.13ms]
+(pass) DB-16 upgrades an old file without losing attendance and persists participation [18.10ms]
+(pass) DB-17 refuses a newer database version instead of downgrading it [5.57ms]
+
+ 47 pass
+ 0 fail
+ 230 expect() calls
+Ran 47 tests across 3 files. [400.00ms]

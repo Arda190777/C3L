@@ -1,0 +1,1 @@
+design-qa rendered audit: CLEAN  (http://localhost:3100/10-attendance/statistics?courseId=S3DEMO101, 1280x720; 43 elements, 13 interactive; focus data: keyboard; 0 blocker, 0 high, 0 warn; 0 waived)

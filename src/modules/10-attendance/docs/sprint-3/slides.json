@@ -1,0 +1,147 @@
+[
+  {
+    "title": "Module 10 - Sprint 3",
+    "speaker": "Jaspreet",
+    "time": "0:00-0:45",
+    "kind": "lines",
+    "foot": "C3L team fork: github.com/Arda190777/C3L",
+    "notes": "Hello everyone. We are presenting Module 10, Attendance and Participation Tracking. Our team is Jaspreet Gakhal, Gera Paoli, Arda Efe Cetintav and Nasir Ishaq Sani. I will introduce the module and demonstrate the interface. Gera explains the database, Arda explains testing, and Nasir explains the API and release evidence. These are our review and presentation responsibilities; Git history shows actual authorship. The current candidate includes implemented Sprint 3 features, not only a plan.\n\nSources: Implementation: https://github.com/Arda190777/C3L/commit/86d64cc; evidence: https://github.com/Arda190777/C3L/tree/feature/attendance-sprint-3-plan/src/modules/10-attendance/docs/sprint-3/evidence. Local prototype; #5 access integration remains open.",
+    "lines": [
+      "Attendance & Participation Tracking",
+      "Jaspreet: interface, team introduction and demo",
+      "Gera: storage and Arda: testing",
+      "Nasir: API, design and release documentation"
+    ]
+  },
+  {
+    "title": "Six local requirements working",
+    "speaker": "Jaspreet",
+    "time": "0:45-1:30",
+    "kind": "table",
+    "foot": "Implemented and tested locally. Shared SRS numbering and access integration remain open.",
+    "notes": "Our module records attendance, keeps a filterable history and distinguishes absence types. Sprint 3 adds activity participation, attendance reports and statistics. All six local functions are implemented and tested in the candidate. The FR IDs are local mapping IDs because the official shared SRS IDs have not been supplied. Login, role and enrollment checks are still tracked in issue 5; we use fictional records for this demonstration.\n\nSources: Implementation: https://github.com/Arda190777/C3L/commit/86d64cc; evidence: https://github.com/Arda190777/C3L/tree/feature/attendance-sprint-3-plan/src/modules/10-attendance/docs/sprint-3/evidence. Local prototype; #5 access integration remains open.",
+    "headers": ["Local requirement", "Candidate behavior"],
+    "rows": [
+      ["FR-01: daily attendance", "Save and correct marks"],
+      ["FR-02: attendance history", "Exact IDs + inclusive dates"],
+      ["FR-03: absence types", "Present / excused / unexcused"],
+      ["FR-04: participation", "Activity scores + corrections"],
+      ["FR-05: reports", "HTML + JSON + CSV download"],
+      ["FR-06: statistics", "Counts, points and averages"]
+    ]
+  },
+  {
+    "title": "Live demonstration",
+    "speaker": "Jaspreet",
+    "time": "1:30-3:30",
+    "kind": "lines",
+    "foot": "Demo IDs: S3DEMO101 / S3DEMO001. Use a fresh fictional course for a clean dataset.",
+    "notes": "Open the running application. Record Present for S3DEMO101, S3DEMO001 and 2026-11-20, then show history. Save Class discussion with score 4 on Participation. Submit the same key with score 2 and show that it corrects one row. Add Group exercise with score 5. Filter Statistics to this course: there should be one present mark, two activities, seven points and an average of 3.5. Open Reports with the same filter and download CSV. If the database already contains other examples, use a fresh fictional course ID. Finish: Gera will now explain how these records are stored.\n\nSources: Implementation: https://github.com/Arda190777/C3L/commit/86d64cc; evidence: https://github.com/Arda190777/C3L/tree/feature/attendance-sprint-3-plan/src/modules/10-attendance/docs/sprint-3/evidence. Local prototype; #5 access integration remains open.",
+    "lines": [
+      "1. Save Present. open attendance history.",
+      "2. Save activity score 4. correct it to 2.",
+      "3. Add a second activity with score 5.",
+      "4. Show 7 points, average 3.5. download CSV."
+    ]
+  },
+  {
+    "title": "Gera - storage improvements",
+    "speaker": "Gera",
+    "time": "3:30-4:30",
+    "kind": "lines",
+    "foot": "Database opens when first used. Parameterized writes keep values separate from SQL.",
+    "notes": "Open store.js. AttendanceStore opens a database only when a method first needs it. The existing save and list methods still handle attendance. saveParticipation uses the course, student, date and activity as its correction key. getReport combines the filtered attendance and participation records into one row per student and course. getStatistics totals those rows. Present rate is present divided by recorded marks, including excused and unexcused. It does not estimate attendance from enrollment or invent absences.\n\nSources: Implementation: https://github.com/Arda190777/C3L/commit/86d64cc; evidence: https://github.com/Arda190777/C3L/tree/feature/attendance-sprint-3-plan/src/modules/10-attendance/docs/sprint-3/evidence. Local prototype; #5 access integration remains open.",
+    "lines": [
+      "store.js uses Bun's built-in SQLite database.",
+      "saveParticipation() saves or corrects an activity.",
+      "getReport() groups records by course and student.",
+      "getStatistics() calculates filtered totals."
+    ]
+  },
+  {
+    "title": "Gera - database version 2",
+    "speaker": "Gera",
+    "time": "4:30-5:30",
+    "kind": "table",
+    "foot": "Canonical DDL: schema.sql. No invented links to unavailable course/roster contracts.",
+    "notes": "Show schema.sql and the database diagram in docs/sprint-3/design.md. There are two independent tables. Attendance is unique per course, student and day. Participation adds activity to that key, so two activities on the same day are allowed. Scores are integers from zero to five; this is our classroom prototype policy. The schema is created in a transaction, without deleting old attendance. DB-16 proves the old-file upgrade and persistence; DB-17 refuses a newer version. Back up existing files before the first upgrade. Arda will explain the tests next.\n\nSources: Implementation: https://github.com/Arda190777/C3L/commit/86d64cc; evidence: https://github.com/Arda190777/C3L/tree/feature/attendance-sprint-3-plan/src/modules/10-attendance/docs/sprint-3/evidence. Local prototype; #5 access integration remains open.",
+    "headers": ["Table / upgrade", "Rule"],
+    "rows": [
+      ["attendance", "One course + student + date"],
+      ["participation", "One course + student + date + activity"],
+      ["Participation score", "Integer 0-5. different activities are separate"],
+      ["Additive SQLite v2 upgrade", "Preserve old attendance. refuse newer schemas"]
+    ]
+  },
+  {
+    "title": "Arda - executed test results",
+    "speaker": "Arda",
+    "time": "5:30-6:30",
+    "kind": "lines",
+    "foot": "Final tested source: 86d64cc. Test logs are saved in docs/sprint-3/evidence/.",
+    "notes": "My area is storage testing and regression evidence. In Sprint 2, my section covered store.js and store.test.js. For Sprint 3, Gera explains the storage improvements, and I explain how we check them.\n\nThe module now has participation records, reports and statistics. The tests check saving, correcting, filtering and calculating totals. They also check invalid input and whether old attendance data survives the database upgrade.\n\nOn the final tested code, all 47 Module 10 tests passed. The full project check passed 103 tests, lint, the TypeScript host check and all 12 module front pages. This is regression evidence: it checks that the new work did not break the existing features. It does not prove that every possible bug is gone.\n\nSources: Implementation: https://github.com/Arda190777/C3L/commit/86d64cc; evidence: https://github.com/Arda190777/C3L/tree/feature/attendance-sprint-3-plan/src/modules/10-attendance/docs/sprint-3/evidence. Local prototype; #5 access integration remains open.",
+    "lines": [
+      "47 Module 10 tests passed. 0 failed.",
+      "103 repository tests passed. 0 failed.",
+      "Lint, host type check and 12 front pages passed.",
+      "Unit + SQLite + mounted API regression checks."
+    ]
+  },
+  {
+    "title": "Arda - simple storage test examples",
+    "speaker": "Arda",
+    "time": "6:30-7:45",
+    "kind": "table",
+    "foot": "Most tests: fresh :memory: database. Persistence tests: isolated temporary files.",
+    "notes": "First, DB-12 checks a participation correction. It saves one activity, then saves the same course, student, date and activity again with a different score. We expect one record, the same ID and the new score. A different activity should create a second record.\n\nSecond, DB-16 checks an old database file. The test creates an attendance table in a temporary folder and inserts a sample record. It then opens that file using the new store. The old attendance record must still be there. The test saves participation, closes the store and opens it again. The participation record must also remain, and the schema version must be two.\n\nMost tests use an in-memory database because each test needs a fresh, separate database. The persistence test uses a temporary file because memory alone cannot prove that data survives reopening. Tests do not use the application's real database.\n\nThat is my testing section. Nasir will explain the APIs and release documentation next. Open DB-12 and DB-16 in store.test.js. Run bun test src/modules/10-attendance/store.test.js if time allows. Full-module totals are not the store-only count.\n\nSources: Implementation: https://github.com/Arda190777/C3L/commit/86d64cc; evidence: https://github.com/Arda190777/C3L/tree/feature/attendance-sprint-3-plan/src/modules/10-attendance/docs/sprint-3/evidence. Local prototype; #5 access integration remains open.",
+    "headers": ["Test in store.test.js", "What must happen"],
+    "rows": [
+      ["DB-12: correct an activity", "Same ID, one row, updated score"],
+      ["DB-14: report calculations", "Correct counts/rate. no invented absences"],
+      ["DB-16: old file + reopen", "Old attendance retained. participation persists"]
+    ]
+  },
+  {
+    "title": "Nasir - API and validation",
+    "speaker": "Nasir",
+    "time": "7:45-8:45",
+    "kind": "lines",
+    "foot": "All routes are under /10-attendance. Existing attendance endpoints remain compatible.",
+    "notes": "The shared router mounts our module at /10-attendance. The new participation API saves and lists activities. Statistics returns aggregate totals, and the report endpoint returns one row per course and student. The CSV route downloads the same filtered data. The OpenAPI file documents request and response schemas. Server validation rejects invalid scores, IDs and dates with 422; storage failures return a friendly 503. HTML values are escaped, SQL uses bound parameters and CSV text is protected against spreadsheet formulas. None of these replaces the still-missing role and enrollment enforcement in issue 5.\n\nSources: Implementation: https://github.com/Arda190777/C3L/commit/86d64cc; evidence: https://github.com/Arda190777/C3L/tree/feature/attendance-sprint-3-plan/src/modules/10-attendance/docs/sprint-3/evidence. Local prototype; #5 access integration remains open.",
+    "lines": [
+      "GET /api/participation and POST /api/participation",
+      "GET /api/statistics and GET /api/reports/attendance",
+      "GET /reports/attendance.csv and /openapi.json",
+      "422: invalid input/filter and 503: storage failure"
+    ]
+  },
+  {
+    "title": "Nasir - GitHub and documentation",
+    "speaker": "Nasir",
+    "time": "8:45-9:45",
+    "kind": "table",
+    "foot": "Project board updated (private). Nasir must accept his invitation for formal assignment.",
+    "notes": "Show the fork, Sprint 3 milestone, issues 10 through 13, commits and PR 14. Storage, API, UI and tests are separate meaningful commits, not fabricated per-person authorship. Issue 15 records a real defect: blank course IDs used to return zero counts and now cause validation errors. The local SRS contribution, architecture/database diagram, API contract and release notes are updated. Copying the contribution into the actual shared SRS still needs its link and official IDs. Open https://github.com/users/Arda190777/projects/1 using the owner account. The actual linked Project board has 10/11/12 Ready for review, 13 In Progress, 6/15 Done and 5 Todo. It retains default private visibility. Human peer review must be recorded by real teammates, not presented as already done.\n\nSources: Implementation: https://github.com/Arda190777/C3L/commit/86d64cc; evidence: https://github.com/Arda190777/C3L/tree/feature/attendance-sprint-3-plan/src/modules/10-attendance/docs/sprint-3/evidence. Local prototype; #5 access integration remains open.",
+    "headers": ["Evidence", "Current state"],
+    "rows": [
+      ["#10 Gera / #11 Arda / #12 Jaspreet", "Implemented. real teammate review pending"],
+      ["#13 Nasir: API + SRS/docs", "Code/docs ready. shared SRS edit pending"],
+      ["#15 blank course-ID bug", "Fixed candidate. DB-10 regression passes"],
+      ["PR #14 / milestone 2 / candidate tag", "Commits and logs available. main not merged"]
+    ]
+  },
+  {
+    "title": "Nasir - release and remaining limits",
+    "speaker": "Nasir",
+    "time": "9:45-10:45",
+    "kind": "lines",
+    "foot": "Tag: module10-sprint3-v0.3.0-rc.1 and Install/use guide and known issues are in release notes.",
+    "notes": "Our candidate includes working local attendance, participation, reports and statistics. Installation is clone the Sprint 3 branch, bun install --frozen-lockfile, then bun run dev. Existing files receive the additive v2 upgrade; back up first. The candidate tag identifies this release for review, but main is not merged. We are transparent about open items: issue 5 integration, actual shared SRS mapping and real peer review. The updated board is private and can be shown from the owner account. SQLite is local; there is no audit history, pagination or session-level attendance. Before Week 14, focus on the remaining integration, targeted fixes, regression evidence, documentation and rehearsal. Thank you; we are ready for questions.\n\nSources: Implementation: https://github.com/Arda190777/C3L/commit/86d64cc; evidence: https://github.com/Arda190777/C3L/tree/feature/attendance-sprint-3-plan/src/modules/10-attendance/docs/sprint-3/evidence. Local prototype; #5 access integration remains open.",
+    "lines": [
+      "Candidate 0.3.0: major local features complete.",
+      "Known #5: sign-in, roles and roster integration.",
+      "Local SQLite. no audit log, sessions or pagination.",
+      "Next: peer review, fixes, regression and rehearsal."
+    ]
+  }
+]

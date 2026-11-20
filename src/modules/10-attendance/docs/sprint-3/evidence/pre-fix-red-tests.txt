@@ -1,0 +1,124 @@
+bun test v1.4.3 (c6da4a4d3)
+
+src\modules\10-attendance\attendance.test.js:
+
+# Unhandled error between tests
+-------------------------------
+SyntaxError: Export named 'validateParticipation' not found in module 'C:\Users\efece\Documents\ChatGPT\Software Dev\C3L\src\modules\10-attendance\attendance.js'.
+-------------------------------
+
+
+src\modules\10-attendance\store.test.js:
+(pass) DB-01 new database has no records [2.53ms]
+(pass) DB-02 saves a record and removes extra spaces [1.20ms]
+(pass) DB-03 saving the same mark updates it [0.77ms]
+(pass) DB-04 different students, courses and dates create separate records [0.66ms]
+(pass) DB-05a course filter finds the selected course [0.47ms]
+(pass) DB-05b student filter needs the complete student ID [0.45ms]
+(pass) DB-05c date filter includes the selected day [0.46ms]
+(pass) DB-06 SQL-looking text stays part of the student ID [0.38ms]
+(pass) DB-07 invalid input gives an error [0.43ms]
+(pass) DB-08 file database keeps records after reopening [11.09ms]
+(pass) DB-09 counts statuses for one course after a correction [1.34ms]
+189 |
+190 | test('DB-10 course counts handle empty courses, whitespace and invalid IDs', () => {
+191 |   expect(store.countByStatus('UNKNOWN')).toEqual({ present: 0, excused: 0, unexcused: 0 })
+192 |   store.save(mark)
+193 |   expect(store.countByStatus(' PROG3000 ')).toEqual({ present: 1, excused: 0, unexcused: 0 })
+194 |   expect(() => store.countByStatus(' ')).toThrow('Invalid course ID')
+                                               ^
+error: expect(received).toThrow(expected)
+
+Expected substring: "Invalid course ID"
+
+Received function did not throw
+Received value: {
+  present: 0,
+  excused: 0,
+  unexcused: 0,
+}
+
+      at <anonymous> (C:\Users\efece\Documents\ChatGPT\Software Dev\C3L\src\modules\10-attendance\store.test.js:194:42)
+(fail) DB-10 course counts handle empty courses, whitespace and invalid IDs [1.32ms]
+197 |
+198 | test('DB-11 saves participation with trimmed values and a numeric score', () => {
+199 |   participation.studentId = ' S1001 '
+200 |   participation.activity = ' Class discussion '
+201 |   participation.score = '4'
+202 |   const saved = store.saveParticipation(participation)
+                            ^
+TypeError: store.saveParticipation is not a function. (In 'store.saveParticipation(participation)', 'store.saveParticipation' is undefined)
+      at <anonymous> (C:\Users\efece\Documents\ChatGPT\Software Dev\C3L\src\modules\10-attendance\store.test.js:202:23)
+(fail) DB-11 saves participation with trimmed values and a numeric score [0.26ms]
+204 |   expect(saved.activity).toBe('Class discussion')
+205 |   expect(saved.score).toBe(4)
+206 | })
+207 |
+208 | test('DB-12 corrects the same activity but keeps different activities separate', () => {
+209 |   const first = store.saveParticipation(participation)
+                            ^
+TypeError: store.saveParticipation is not a function. (In 'store.saveParticipation(participation)', 'store.saveParticipation' is undefined)
+      at <anonymous> (C:\Users\efece\Documents\ChatGPT\Software Dev\C3L\src\modules\10-attendance\store.test.js:209:23)
+(fail) DB-12 corrects the same activity but keeps different activities separate [0.21ms]
+217 |   expect(records.length).toBe(2)
+218 |   expect(records.find((record) => record.activity === 'Class discussion').score).toBe(2)
+219 | })
+220 |
+221 | test('DB-13 filters participation by course, student and inclusive dates', () => {
+222 |   store.saveParticipation(participation)
+              ^
+TypeError: store.saveParticipation is not a function. (In 'store.saveParticipation(participation)', 'store.saveParticipation' is undefined)
+      at <anonymous> (C:\Users\efece\Documents\ChatGPT\Software Dev\C3L\src\modules\10-attendance\store.test.js:222:9)
+(fail) DB-13 filters participation by course, student and inclusive dates [0.16ms]
+244 | test('DB-14 reports combine attendance and participation without inventing absences', () => {
+245 |   store.save(mark)
+246 |   mark.date = '2026-10-17'
+247 |   mark.status = 'excused'
+248 |   store.save(mark)
+249 |   store.saveParticipation(participation)
+              ^
+TypeError: store.saveParticipation is not a function. (In 'store.saveParticipation(participation)', 'store.saveParticipation' is undefined)
+      at <anonymous> (C:\Users\efece\Documents\ChatGPT\Software Dev\C3L\src\modules\10-attendance\store.test.js:249:9)
+(fail) DB-14 reports combine attendance and participation without inventing absences [0.66ms]
+277 |   expect(dated.totalMarks).toBe(1)
+278 |   expect(dated.participationEntries).toBe(0)
+279 | })
+280 |
+281 | test('DB-15 empty summaries return zero and invalid participation is not saved', () => {
+282 |   const statistics = store.getStatistics(filter)
+                                 ^
+TypeError: store.getStatistics is not a function. (In 'store.getStatistics(filter)', 'store.getStatistics' is undefined)
+      at <anonymous> (C:\Users\efece\Documents\ChatGPT\Software Dev\C3L\src\modules\10-attendance\store.test.js:282:28)
+(fail) DB-15 empty summaries return zero and invalid participation is not saved [0.22ms]
+311 |   oldDatabase.close()
+312 |
+313 |   store.close()
+314 |   store = new AttendanceStore(filename)
+315 |   expect(store.list(filter)[0].id).toBe(42)
+316 |   store.saveParticipation(participation)
+              ^
+TypeError: store.saveParticipation is not a function. (In 'store.saveParticipation(participation)', 'store.saveParticipation' is undefined)
+      at <anonymous> (C:\Users\efece\Documents\ChatGPT\Software Dev\C3L\src\modules\10-attendance\store.test.js:316:9)
+(fail) DB-16 upgrades an old file without losing attendance and persists participation [12.93ms]
+328 |   const newerDatabase = new Database(filename, { create: true })
+329 |   newerDatabase.run('PRAGMA user_version = 99')
+330 |   newerDatabase.close()
+331 |   store.close()
+332 |   store = new AttendanceStore(filename)
+333 |   expect(() => store.list(filter)).toThrow('newer')
+                                         ^
+error: expect(received).toThrow(expected)
+
+Expected substring: "newer"
+
+Received function did not throw
+Received value: []
+
+      at <anonymous> (C:\Users\efece\Documents\ChatGPT\Software Dev\C3L\src\modules\10-attendance\store.test.js:333:36)
+(fail) DB-17 refuses a newer database version instead of downgrading it [10.77ms]
+
+ 11 pass
+ 9 fail
+ 1 error
+ 32 expect() calls
+Ran 20 tests across 2 files. [173.00ms]

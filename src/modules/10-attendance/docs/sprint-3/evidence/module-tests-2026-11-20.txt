@@ -1,0 +1,40 @@
+bun test v1.4.3 (c6da4a4d3)
+
+src\modules\10-attendance\attendance.test.js:
+(pass) attendance validation > VAL-01 accepts all three attendance statuses [19.60ms]
+(pass) attendance validation > VAL-02 rejects blank and oversized IDs [0.73ms]
+(pass) attendance validation > VAL-03 rejects impossible dates and accepts leap days [0.24ms]
+(pass) attendance validation > VAL-04 rejects unknown status and long notes [0.11ms]
+(pass) attendance validation > VAL-05 checks history dates and ID lengths [0.86ms]
+
+src\modules\10-attendance\router.test.js:
+(pass) attendance routes through the shared prefix > HTTP-01 serves the form as HTML through finishResponse [44.47ms]
+(pass) attendance routes through the shared prefix > HTTP-02 saves and retrieves JSON for each status [50.46ms]
+(pass) attendance routes through the shared prefix > HTTP-03 rejects malformed or missing JSON fields [22.09ms]
+(pass) attendance routes through the shared prefix > HTTP-04 rejects invalid date, blank ID and unsupported status [7.68ms]
+(pass) attendance routes through the shared prefix > HTTP-05 form submission redirects after saving [12.66ms]
+(pass) attendance routes through the shared prefix > HTTP-06 form errors preserve escaped values [4.96ms]
+(pass) attendance routes through the shared prefix > HTTP-07 history escapes stored notes and IDs [6.72ms]
+(pass) attendance routes through the shared prefix > HTTP-08 validates date filters for both history endpoints [4.12ms]
+(pass) attendance routes through the shared prefix > HTTP-09 filters records and shows an empty state [7.09ms]
+(pass) attendance routes through the shared prefix > HTTP-10 corrects an existing mark through the API [5.11ms]
+(pass) attendance routes through the shared prefix > HTTP-11 uses a friendly error when storage fails [5.77ms]
+(pass) APP-01 discovers Module 10 and keeps the main site working [3522.90ms]
+
+src\modules\10-attendance\store.test.js:
+(pass) DB-01 new database has no records [0.94ms]
+(pass) DB-02 saves a record and removes extra spaces [0.88ms]
+(pass) DB-03 saving the same mark updates it [1.04ms]
+(pass) DB-04 different students, courses and dates create separate records [0.96ms]
+(pass) DB-05a course filter finds the selected course [0.82ms]
+(pass) DB-05b student filter needs the complete student ID [0.62ms]
+(pass) DB-05c date filter includes the selected day [1.07ms]
+(pass) DB-06 SQL-looking text stays part of the student ID [0.79ms]
+(pass) DB-07 invalid input gives an error [1.26ms]
+(pass) DB-08 file database keeps records after reopening [20.34ms]
+(pass) DB-09 counts statuses for one course after a correction [2.38ms]
+
+ 28 pass
+ 0 fail
+ 97 expect() calls
+Ran 28 tests across 3 files. [5.22s]

@@ -1,0 +1,83 @@
+{
+  "summary": {
+    "total_changes": 6,
+    "breaking_changes": 0,
+    "potentially_breaking_changes": 0,
+    "non_breaking_changes": 1,
+    "enhancements": 5,
+    "critical_severity": 0,
+    "high_severity": 0,
+    "medium_severity": 0,
+    "low_severity": 0,
+    "info_severity": 6
+  },
+  "hasBreakingChanges": false,
+  "changes": [
+    {
+      "changeType": "non_breaking",
+      "severity": "info",
+      "category": "versioning",
+      "path": "/info/version",
+      "message": "API version changed from '0.2.0' to '0.3.0'",
+      "oldValue": "0.2.0",
+      "newValue": "0.3.0",
+      "migrationGuide": "",
+      "impactDescription": "Version change indicates API evolution"
+    },
+    {
+      "changeType": "enhancement",
+      "severity": "info",
+      "category": "endpoints",
+      "path": "/paths/api/participation",
+      "message": "New endpoint added: GET /api/participation",
+      "oldValue": null,
+      "newValue": "GET /api/participation",
+      "migrationGuide": "",
+      "impactDescription": "New functionality available to clients"
+    },
+    {
+      "changeType": "enhancement",
+      "severity": "info",
+      "category": "endpoints",
+      "path": "/paths/api/participation",
+      "message": "New endpoint added: POST /api/participation",
+      "oldValue": null,
+      "newValue": "POST /api/participation",
+      "migrationGuide": "",
+      "impactDescription": "New functionality available to clients"
+    },
+    {
+      "changeType": "enhancement",
+      "severity": "info",
+      "category": "endpoints",
+      "path": "/paths/api/reports/attendance",
+      "message": "New endpoint added: GET /api/reports/attendance",
+      "oldValue": null,
+      "newValue": "GET /api/reports/attendance",
+      "migrationGuide": "",
+      "impactDescription": "New functionality available to clients"
+    },
+    {
+      "changeType": "enhancement",
+      "severity": "info",
+      "category": "endpoints",
+      "path": "/paths/reports/attendance.csv",
+      "message": "New endpoint added: GET /reports/attendance.csv",
+      "oldValue": null,
+      "newValue": "GET /reports/attendance.csv",
+      "migrationGuide": "",
+      "impactDescription": "New functionality available to clients"
+    },
+    {
+      "changeType": "enhancement",
+      "severity": "info",
+      "category": "endpoints",
+      "path": "/paths/api/statistics",
+      "message": "New endpoint added: GET /api/statistics",
+      "oldValue": null,
+      "newValue": "GET /api/statistics",
+      "migrationGuide": "",
+      "impactDescription": "New functionality available to clients"
+    }
+  ]
+}
