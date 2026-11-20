@@ -14,6 +14,7 @@ export function page(base, title, content) {
   return `<!doctype html>
   <html lang="en"><head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
     <title>${escapeHtml(title)} | C3L Attendance</title>
     <style>
       :root { --ink: #1e293b; --muted: #475569; --primary: #1d4ed8; --border: #cbd5e1; }
@@ -57,12 +58,14 @@ export function page(base, title, content) {
     </style>
   </head><body><main>
     <nav aria-label="Main navigation"><a href="/">All modules</a>
-      <a href="${base}">Record attendance</a><a href="${base}/history">Attendance history</a></nav>
+      <a href="${base}">Record attendance</a><a href="${base}/history">Attendance history</a>
+      <a href="${base}/participation">Participation</a><a href="${base}/statistics">Statistics</a>
+      <a href="${base}/reports">Reports</a></nav>
     <p class="eyebrow">C3L / Module 10</p><h1>${escapeHtml(title)}</h1>
     <p class="intro">Attendance &amp; Participation Tracking</p>
-    <aside class="notice">Local Sprint 1 prototype. Use sample IDs only. Sign-in and course rosters are planned for integration.</aside>
+    <aside class="notice">Local classroom prototype. Use fictional IDs only. Sign-in, role and course roster enforcement still require integration.</aside>
     ${content}
-    <footer>Sprint 1: daily attendance, absence types and history.</footer>
+    <footer>Sprint 3: attendance, participation, statistics and reports. <a href="${base}/openapi.json">API specification</a></footer>
   </main></body></html>`
 }
 /** Collects all validation/storage messages in one summary above the page content. */
@@ -92,4 +95,28 @@ export function fieldError(field, errors) {
 // Returning '' when valid lets the views insert this helper directly into an input tag.
 export function errorAttributes(field, errors) {
   return errors[field] ? `aria-invalid="true" aria-describedby="${field}-error"` : ''
+}
+
+/** A separate ID prefix avoids collisions with participation entry fields. */
+export function filterForm(path, filter, errors = {}) {
+  const fields = [
+    ['courseId', 'Course ID', 'text'],
+    ['studentId', 'Student ID', 'text'],
+    ['from', 'From date', 'date'],
+    ['to', 'To date', 'date'],
+  ]
+  const messages = {}
+  for (const field of Object.keys(errors)) messages[`filter-${field}`] = errors[field]
+  return `${errorSummary(messages)}<section><h2>Filter records</h2>
+    <form method="get" action="${path}"><div class="grid">
+    ${fields
+      .map(([field, label, type]) => {
+        const id = `filter-${field}`
+        return `<div><label for="${id}">${label}</label><input id="${id}" name="${field}" type="${type}"
+        ${type === 'text' ? 'maxlength="50"' : ''} value="${escapeHtml(filter[field])}"
+        ${errorAttributes(id, messages)}>${fieldError(id, messages)}</div>`
+      })
+      .join('')}
+    </div><div class="actions"><button type="submit">Apply filters</button><a href="${path}">Clear filters</a></div>
+    <p class="hint">IDs match exactly. Both date limits are included.</p></form></section>`
 }

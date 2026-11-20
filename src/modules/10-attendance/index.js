@@ -1,5 +1,5 @@
 // Module 10: Attendance & Participation Tracking.
-// Sprint 1 covers daily attendance, history and excused/unexcused absences.
+// Sprint 3 covers attendance, participation, statistics and CSV reports.
 import { join } from 'node:path'
 import { defineModule, moduleBase } from '../../core/defineModule'
 import { createAttendanceRouter } from './router'
@@ -14,6 +14,6 @@ const store = new AttendanceStore(join(import.meta.dir, 'data', 'attendance.sqli
 // does not start another server; the existing C3L server serves the module's routes.
 export default defineModule({
   name: 'Module 10: Attendance & Participation Tracking',
-  description: 'Record daily attendance and view attendance history',
+  description: 'Attendance, participation, statistics and downloadable reports',
   router: createAttendanceRouter(store, base),
 })
