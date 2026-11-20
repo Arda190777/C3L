@@ -20,35 +20,14 @@
     "kind": "table",
     "foot": "Implemented and tested locally. Shared SRS numbering and access integration remain open.",
     "notes": "Our module records attendance, keeps a filterable history and distinguishes absence types. Sprint 3 adds activity participation, attendance reports and statistics. All six local functions are implemented and tested in the candidate. The FR IDs are local mapping IDs because the official shared SRS IDs have not been supplied. Login, role and enrollment checks are still tracked in issue 5; we use fictional records for this demonstration.\n\nSources: Implementation: https://github.com/Arda190777/C3L/commit/86d64cc; evidence: https://github.com/Arda190777/C3L/tree/feature/attendance-sprint-3-plan/src/modules/10-attendance/docs/sprint-3/evidence. Local prototype; #5 access integration remains open.",
-    "headers": [
-      "Local requirement",
-      "Candidate behavior"
-    ],
+    "headers": ["Local requirement", "Candidate behavior"],
     "rows": [
-      [
-        "FR-01: daily attendance",
-        "Save and correct marks"
-      ],
-      [
-        "FR-02: attendance history",
-        "Exact IDs + inclusive dates"
-      ],
-      [
-        "FR-03: absence types",
-        "Present / excused / unexcused"
-      ],
-      [
-        "FR-04: participation",
-        "Activity scores + corrections"
-      ],
-      [
-        "FR-05: reports",
-        "HTML + JSON + CSV download"
-      ],
-      [
-        "FR-06: statistics",
-        "Counts, points and averages"
-      ]
+      ["FR-01: daily attendance", "Save and correct marks"],
+      ["FR-02: attendance history", "Exact IDs + inclusive dates"],
+      ["FR-03: absence types", "Present / excused / unexcused"],
+      ["FR-04: participation", "Activity scores + corrections"],
+      ["FR-05: reports", "HTML + JSON + CSV download"],
+      ["FR-06: statistics", "Counts, points and averages"]
     ]
   },
   {
@@ -86,27 +65,12 @@
     "kind": "table",
     "foot": "Canonical DDL: schema.sql. No invented links to unavailable course/roster contracts.",
     "notes": "Show schema.sql and the database diagram in docs/sprint-3/design.md. There are two independent tables. Attendance is unique per course, student and day. Participation adds activity to that key, so two activities on the same day are allowed. Scores are integers from zero to five; this is our classroom prototype policy. The schema is created in a transaction, without deleting old attendance. DB-16 proves the old-file upgrade and persistence; DB-17 refuses a newer version. Back up existing files before the first upgrade. Arda will explain the tests next.\n\nSources: Implementation: https://github.com/Arda190777/C3L/commit/86d64cc; evidence: https://github.com/Arda190777/C3L/tree/feature/attendance-sprint-3-plan/src/modules/10-attendance/docs/sprint-3/evidence. Local prototype; #5 access integration remains open.",
-    "headers": [
-      "Table / upgrade",
-      "Rule"
-    ],
+    "headers": ["Table / upgrade", "Rule"],
     "rows": [
-      [
-        "attendance",
-        "One course + student + date"
-      ],
-      [
-        "participation",
-        "One course + student + date + activity"
-      ],
-      [
-        "Participation score",
-        "Integer 0-5. different activities are separate"
-      ],
-      [
-        "Additive SQLite v2 upgrade",
-        "Preserve old attendance. refuse newer schemas"
-      ]
+      ["attendance", "One course + student + date"],
+      ["participation", "One course + student + date + activity"],
+      ["Participation score", "Integer 0-5. different activities are separate"],
+      ["Additive SQLite v2 upgrade", "Preserve old attendance. refuse newer schemas"]
     ]
   },
   {
@@ -130,23 +94,11 @@
     "kind": "table",
     "foot": "Most tests: fresh :memory: database. Persistence tests: isolated temporary files.",
     "notes": "First, DB-12 checks a participation correction. It saves one activity, then saves the same course, student, date and activity again with a different score. We expect one record, the same ID and the new score. A different activity should create a second record.\n\nSecond, DB-16 checks an old database file. The test creates an attendance table in a temporary folder and inserts a sample record. It then opens that file using the new store. The old attendance record must still be there. The test saves participation, closes the store and opens it again. The participation record must also remain, and the schema version must be two.\n\nMost tests use an in-memory database because each test needs a fresh, separate database. The persistence test uses a temporary file because memory alone cannot prove that data survives reopening. Tests do not use the application's real database.\n\nThat is my testing section. Nasir will explain the APIs and release documentation next. Open DB-12 and DB-16 in store.test.js. Run bun test src/modules/10-attendance/store.test.js if time allows. Full-module totals are not the store-only count.\n\nSources: Implementation: https://github.com/Arda190777/C3L/commit/86d64cc; evidence: https://github.com/Arda190777/C3L/tree/feature/attendance-sprint-3-plan/src/modules/10-attendance/docs/sprint-3/evidence. Local prototype; #5 access integration remains open.",
-    "headers": [
-      "Test in store.test.js",
-      "What must happen"
-    ],
+    "headers": ["Test in store.test.js", "What must happen"],
     "rows": [
-      [
-        "DB-12: correct an activity",
-        "Same ID, one row, updated score"
-      ],
-      [
-        "DB-14: report calculations",
-        "Correct counts/rate. no invented absences"
-      ],
-      [
-        "DB-16: old file + reopen",
-        "Old attendance retained. participation persists"
-      ]
+      ["DB-12: correct an activity", "Same ID, one row, updated score"],
+      ["DB-14: report calculations", "Correct counts/rate. no invented absences"],
+      ["DB-16: old file + reopen", "Old attendance retained. participation persists"]
     ]
   },
   {
@@ -170,27 +122,12 @@
     "kind": "table",
     "foot": "Project board updated (private). Nasir must accept his invitation for formal assignment.",
     "notes": "Show the fork, Sprint 3 milestone, issues 10 through 13, commits and PR 14. Storage, API, UI and tests are separate meaningful commits, not fabricated per-person authorship. Issue 15 records a real defect: blank course IDs used to return zero counts and now cause validation errors. The local SRS contribution, architecture/database diagram, API contract and release notes are updated. Copying the contribution into the actual shared SRS still needs its link and official IDs. Open https://github.com/users/Arda190777/projects/1 using the owner account. The actual linked Project board has 10/11/12 Ready for review, 13 In Progress, 6/15 Done and 5 Todo. It retains default private visibility. Human peer review must be recorded by real teammates, not presented as already done.\n\nSources: Implementation: https://github.com/Arda190777/C3L/commit/86d64cc; evidence: https://github.com/Arda190777/C3L/tree/feature/attendance-sprint-3-plan/src/modules/10-attendance/docs/sprint-3/evidence. Local prototype; #5 access integration remains open.",
-    "headers": [
-      "Evidence",
-      "Current state"
-    ],
+    "headers": ["Evidence", "Current state"],
     "rows": [
-      [
-        "#10 Gera / #11 Arda / #12 Jaspreet",
-        "Implemented. real teammate review pending"
-      ],
-      [
-        "#13 Nasir: API + SRS/docs",
-        "Code/docs ready. shared SRS edit pending"
-      ],
-      [
-        "#15 blank course-ID bug",
-        "Fixed candidate. DB-10 regression passes"
-      ],
-      [
-        "PR #14 / milestone 2 / candidate tag",
-        "Commits and logs available. main not merged"
-      ]
+      ["#10 Gera / #11 Arda / #12 Jaspreet", "Implemented. real teammate review pending"],
+      ["#13 Nasir: API + SRS/docs", "Code/docs ready. shared SRS edit pending"],
+      ["#15 blank course-ID bug", "Fixed candidate. DB-10 regression passes"],
+      ["PR #14 / milestone 2 / candidate tag", "Commits and logs available. main not merged"]
     ]
   },
   {
