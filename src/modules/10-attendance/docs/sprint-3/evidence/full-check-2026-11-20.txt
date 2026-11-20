@@ -3,7 +3,7 @@ $ biome lint .
 biome.json:25:13 deserialize  DEPRECATED  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   i The use of the recommended field has been deprecated, and will removed in the next major version of Biome. Use preset instead.
-  
+
     23 │     }
     24 │   },
   > 25 │   "linter": {
@@ -15,12 +15,12 @@ biome.json:25:13 deserialize  DEPRECATED  ━━━━━━━━━━━━�
   > 30 │   }
        │   ^
     31 │ }
-    32 │ 
-  
+    32 │
+
   i Migrate the configuration with the proper command
-  
+
   $ biome migrate
-  
+
 
 Checked 58 files in 278ms. No fixes applied.
 Found 1 info.

@@ -1,1 +1,2 @@
 Baseline 04dd3ac09e93d4856df767776e4c4908f05c1feb, run November 20, 2026 on Windows with Bun 1.4.3. Module: 28 pass / 97 assertions. Full: 84 pass / 268 assertions, lint and TypeScript host check passed, 12 front pages passed. These are executed tool-run checks, not teammate peer-review evidence. No new browser demo was executed.
+Terminal trailing spaces were removed from the committed full-check log; result text is unchanged. The original capture remains in the local sprint-work directory.
