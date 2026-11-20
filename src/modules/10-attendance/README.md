@@ -66,3 +66,20 @@ See [Sprint 1 plan](docs/sprint-1.md), [SRS update proposal](docs/srs-update.md)
 The [four-person work plan](docs/team-work-plan.md) assigns the small UI sections to Arda/Jaspreet
 and balanced write/read backend sections to Gera/Nasir. The presentation and individual English
 rehearsal sheets are in `docs/presentation/`.
+
+## Current Sprint 3 plan - November 20, 2026
+
+The latest implementation baseline is `04dd3ac` on `feature/attendance-sprint-2-stats`.
+It adds `countByStatus(courseId)` in storage. A statistics screen/API, participation and reports
+are still pending. The Sprint 1 documents above are historical.
+
+The [Sprint 3 team plan](docs/sprint-3/team-plan.md) is the current responsibility allocation:
+Gera owns storage/database improvements, Arda owns testing, Jaspreet owns the UI/demo, and Nasir
+owns API integration and technical/release documentation. Task issues are #10, #11, #12 and #13.
+
+See the [requirement mapping](docs/sprint-3/requirements-map.md),
+[current API](docs/sprint-3/current-api.md), [release-readiness snapshot](docs/sprint-3/release-readiness.md),
+[team handout](docs/sprint-3/Sprint3-Team-Plan.pdf),
+[Arda's transcript](docs/sprint-3/Arda-Sprint3-Transcript.pdf) and
+[speaker notes](docs/sprint-3/speaker-notes.md). Fresh baseline evidence records 28 module tests,
+84 repository tests and all 12 module front pages passing. Future features need their own tests.

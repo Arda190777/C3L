@@ -1,0 +1,213 @@
+[
+  {
+    "title": "Attendance & Participation",
+    "speaker": "Jaspreet",
+    "time": "0:00-0:45",
+    "kind": "cover",
+    "notes": "Hello everyone. We are presenting Module 10, Attendance and Participation Tracking. Our team is Jaspreet Gakhal, Gera Paoli, Arda Efe Cetintav and Nasir Ishaq Sani. I will introduce the module and demonstrate the working interface. Gera owns storage improvements and the database design. Arda owns testing and regression evidence. Nasir owns API integration and technical documentation. This presentation uses the latest team push, 04dd3ac. We distinguish verified functionality from work still required in Sprint 3.\nSources: https://github.com/Arda190777/C3L/commit/04dd3ac09e93d4856df767776e4c4908f05c1feb; https://github.com/Arda190777/C3L/milestone/2; supplied Sprint-3 announcement. Current-code claims refer to 04dd3ac. Planned items are not completed features."
+  },
+  {
+    "title": "Current scope and remaining work",
+    "speaker": "Jaspreet",
+    "time": "0:45-1:45",
+    "kind": "table",
+    "headers": [
+      "Local requirement",
+      "Verified state at 04dd3ac"
+    ],
+    "rows": [
+      [
+        "FR-01 / FR-03: attendance and absence types",
+        "Implemented and tested"
+      ],
+      [
+        "FR-02: history and filters",
+        "Implemented and tested"
+      ],
+      [
+        "FR-06: attendance statistics",
+        "Storage counts only. UI/API integration pending."
+      ],
+      [
+        "FR-04 / FR-05: participation and reports",
+        "Not implemented yet"
+      ]
+    ],
+    "foot": "M10-FR IDs are local. Nasir must map them to the collaborative SRS.",
+    "notes": "The existing module records and corrects daily attendance, distinguishes absence types and filters history. The latest push adds countByStatus for one course in the storage class, with a correction test. That method does not yet have a statistics screen or endpoint. Participation and attendance reports still need implementation. These are gaps against the final-sprint expectation, so the new backlog gives each gap an owner. We must finish the agreed major features during Sprint 3 and reserve later weeks for testing, bug fixes and documentation.\nSources: https://github.com/Arda190777/C3L/commit/04dd3ac09e93d4856df767776e4c4908f05c1feb; https://github.com/Arda190777/C3L/milestone/2; supplied Sprint-3 announcement. Current-code claims refer to 04dd3ac. Planned items are not completed features."
+  },
+  {
+    "title": "Working attendance demo",
+    "speaker": "Jaspreet",
+    "time": "1:45-3:00",
+    "kind": "lines",
+    "lines": [
+      "Save DEMO101 / DEMO001 / 2026-11-20 as Present",
+      "Save the same combination as Absent - excused",
+      "Filter history by DEMO001, then try a missing ID",
+      "Show counts through DB-09 until a UI/API exists"
+    ],
+    "foot": "Use fictional IDs. Demo only implemented functionality.",
+    "notes": "ACTION: Open http://localhost:3000/10-attendance. Save course DEMO101, student DEMO001, date 2026-11-20 as Present. Return to the form and save the same identifiers/date as Absent - excused. Explain that this corrects one record. Filter by DEMO001, then by MISSING to show an empty result. SAY: The current interface handles daily attendance and history. Course counts currently exist in storage and have a test. We will show a summary screen only after Nasir and I connect it to Gera's implementation. Gera will now explain the database work.\nSources: https://github.com/Arda190777/C3L/commit/04dd3ac09e93d4856df767776e4c4908f05c1feb; https://github.com/Arda190777/C3L/milestone/2; supplied Sprint-3 announcement. Current-code claims refer to 04dd3ac. Planned items are not completed features."
+  },
+  {
+    "title": "Gera: storage improvements",
+    "speaker": "Gera",
+    "time": "3:00-4:15",
+    "kind": "lines",
+    "lines": [
+      "Current: save(), list() and countByStatus(courseId)",
+      "Finalize input rules and correction/count behavior",
+      "Add participation storage and report summary data",
+      "Keep existing records safe during schema changes"
+    ],
+    "foot": "Owner: Gera / #10. New storage work remains planned.",
+    "notes": "My assigned area is store.js and the database design. The current class opens a local SQLite file on first use. It saves or corrects one mark per course, student and date, lists matching marks and now counts statuses for a course. My Sprint 3 tasks are to finish the summary contract and add the agreed participation and report data. Before adding participation fields, we must agree scoring rules with the team and record them in the SRS. Any schema change must preserve existing records. I will coordinate return values and error behavior with Nasir and give Arda clear examples to test.\nSources: https://github.com/Arda190777/C3L/commit/04dd3ac09e93d4856df767776e4c4908f05c1feb; https://github.com/Arda190777/C3L/milestone/2; supplied Sprint-3 announcement. Current-code claims refer to 04dd3ac. Planned items are not completed features."
+  },
+  {
+    "title": "Database design and contracts",
+    "speaker": "Gera",
+    "time": "4:15-5:15",
+    "kind": "table",
+    "headers": [
+      "Existing attendance table",
+      "Rule"
+    ],
+    "rows": [
+      [
+        "course_id + student_id + attendance_date",
+        "Unique daily mark"
+      ],
+      [
+        "status",
+        "present, excused or unexcused"
+      ],
+      [
+        "notes / updated_at",
+        "Optional text / latest save time"
+      ],
+      [
+        "Participation model",
+        "Still to finalize before implementation"
+      ]
+    ],
+    "foot": "Local SQLite. No automatic absence for a missing mark. Rate policy needs agreement.",
+    "notes": "The existing attendance table stores identifiers, date, status, notes and update time. A unique constraint prevents duplicate daily marks. The save query updates the existing row when the key repeats. Counts summarize recorded marks, not a verified class roster or the number of enrolled students. Missing marks do not automatically mean absence. The participation model and any attendance-rate denominator still require agreement. The design is therefore a baseline, not a claim that the final database is already complete. The team will update its diagram and migration notes when the model is settled.\nSources: https://github.com/Arda190777/C3L/commit/04dd3ac09e93d4856df767776e4c4908f05c1feb; https://github.com/Arda190777/C3L/milestone/2; supplied Sprint-3 announcement. Current-code claims refer to 04dd3ac. Planned items are not completed features."
+  },
+  {
+    "title": "Arda: verified testing baseline",
+    "speaker": "Arda",
+    "time": "5:15-6:15",
+    "kind": "table",
+    "headers": [
+      "Check on November 20",
+      "Actual result"
+    ],
+    "rows": [
+      [
+        "Module 10 validation, storage and routes",
+        "28 passed, 0 failed"
+      ],
+      [
+        "Full repository regression",
+        "84 passed, 0 failed"
+      ],
+      [
+        "Shared module front pages",
+        "12 passed"
+      ],
+      [
+        "Lint and TypeScript host check",
+        "Passed"
+      ]
+    ],
+    "foot": "Baseline 04dd3ac. These results cover current code, not future Sprint 3 features.",
+    "notes": "My responsibility is testing and regression evidence. The latest baseline is commit 04dd3ac. The recorded run on November 20 passed 28 Module 10 tests and 84 tests across the repository. All 12 module front pages passed too. The tests cover validation, storage and requests through the shared module prefix. Most storage tests use an in-memory database, so they do not change demo records. One uses a temporary SQLite file and reopens it to check persistence. These results describe the current code. I will rerun the suite after the remaining Sprint 3 features are integrated.\nSources: https://github.com/Arda190777/C3L/commit/04dd3ac09e93d4856df767776e4c4908f05c1feb; https://github.com/Arda190777/C3L/milestone/2; supplied Sprint-3 announcement. Current-code claims refer to 04dd3ac. Planned items are not completed features."
+  },
+  {
+    "title": "Arda: a simple correction test",
+    "speaker": "Arda",
+    "time": "6:15-7:30",
+    "kind": "table",
+    "headers": [
+      "DB-09: selected course",
+      "Present",
+      "Excused",
+      "Unexcused"
+    ],
+    "rows": [
+      [
+        "Before correction",
+        "2",
+        "1",
+        "0"
+      ],
+      [
+        "After one Present becomes Unexcused",
+        "1",
+        "1",
+        "1"
+      ]
+    ],
+    "foot": "Another course stays outside these counts. Test empty and unknown courses next.",
+    "notes": "A simple example is DB-09 in store.test.js. First it saves two Present marks and one Excused mark for the selected course. It also saves a mark for a different course. The expected counts are two Present, one Excused and zero Unexcused. Then it changes one existing Present mark to Unexcused. The expected counts become one, one and one. The total remains three. This checks that a correction changes the totals and that another course stays outside the result. Next, my task is to test empty and unknown courses, whitespace in IDs and the new participation/report contracts. Any defect will get reproducible steps and a regression check. Nasir will explain API integration and the project evidence.\nSources: https://github.com/Arda190777/C3L/commit/04dd3ac09e93d4856df767776e4c4908f05c1feb; https://github.com/Arda190777/C3L/milestone/2; supplied Sprint-3 announcement. Current-code claims refer to 04dd3ac. Planned items are not completed features."
+  },
+  {
+    "title": "Nasir: API integration",
+    "speaker": "Nasir",
+    "time": "7:30-8:30",
+    "kind": "table",
+    "headers": [
+      "Current /10-attendance routes",
+      "Sprint 3 work"
+    ],
+    "rows": [
+      [
+        "GET / and GET /history",
+        "Keep attendance screens working"
+      ],
+      [
+        "POST /attendance",
+        "Keep form validation and redirect"
+      ],
+      [
+        "GET /api/attendance and POST /api/attendance",
+        "Keep JSON read/write behavior"
+      ],
+      [
+        "Summary, participation and report routes",
+        "Agree, implement and document contracts"
+      ]
+    ],
+    "foot": "Owner: Nasir / #13. Identity and enrollment integration remains open in #5.",
+    "notes": "My implementation area is router.js, attendance.js and index.js. The shared C3L app mounts our module under /10-attendance. Existing routes serve the form, save marks and read history as HTML or JSON. I will connect the remaining summary, participation and report operations to agreed routes. We must document actual paths, request fields, responses and error statuses after implementation. I also coordinate the authentication, role and enrollment dependency with Modules 1 and 2. Until those checks exist, this remains a local sample-ID prototype.\nSources: https://github.com/Arda190777/C3L/commit/04dd3ac09e93d4856df767776e4c4908f05c1feb; https://github.com/Arda190777/C3L/milestone/2; supplied Sprint-3 announcement. Current-code claims refer to 04dd3ac. Planned items are not completed features."
+  },
+  {
+    "title": "GitHub and documentation",
+    "speaker": "Nasir",
+    "time": "8:30-9:30",
+    "kind": "lines",
+    "lines": [
+      "#10 Gera: storage     #11 Arda: tests",
+      "#12 Jaspreet: UI     #13 Nasir: API and documents",
+      "Milestone: Module 10 - Sprint 3. Tasks start in Todo.",
+      "Update SRS, architecture, API docs and real review evidence"
+    ],
+    "foot": "GitHub Project access is unavailable. Repository backlog records current status.",
+    "notes": "We created a Sprint 3 milestone and four task issues with owners and acceptance checklists. Gera has issue 10, Arda issue 11, Jaspreet issue 12 and I own issue 13 in the written plan. My repository invitation is pending, so the formal GitHub assignee must be set after I accept it. The planning branch includes a backlog, requirement mapping and test evidence. The current token cannot access GitHub Projects, so the repository backlog is the available tracking view. It is not an updated GitHub Project board. The collaborative SRS link is still missing, and the local requirement mapping must be copied there. We will show real reviews and merged status only when they happen.\nSources: https://github.com/Arda190777/C3L/commit/04dd3ac09e93d4856df767776e4c4908f05c1feb; https://github.com/Arda190777/C3L/milestone/2; supplied Sprint-3 announcement. Current-code claims refer to 04dd3ac. Planned items are not completed features."
+  },
+  {
+    "title": "Release readiness and Week 14",
+    "speaker": "Nasir",
+    "time": "9:30-10:45",
+    "kind": "lines",
+    "lines": [
+      "Finish major features and database decisions in Sprint 3",
+      "Known gaps: participation, reports, summary UI/API and access checks",
+      "Before release: regression, peer review, SRS and release notes",
+      "After Sprint 3: bug fixes, documentation and final-demo rehearsal"
+    ],
+    "foot": "No Sprint 3 release tag exists yet. Set it only on the reviewed candidate.",
+    "notes": "The release notes must match the implementation. At this baseline, daily attendance and history work, and course counts exist in storage. Participation, reports, summary UI/API and access checks remain gaps. There is no Sprint 3 release tag yet. Before the presentation we need the agreed features, updated database and API documentation, fresh regression results and a real review. We will use the release-readiness checklist to keep known issues visible. After Sprint 3, our focus should shift to defects, documentation and rehearsing a polished Week-14 demonstration. Thank you. We are ready for questions.\nSources: https://github.com/Arda190777/C3L/commit/04dd3ac09e93d4856df767776e4c4908f05c1feb; https://github.com/Arda190777/C3L/milestone/2; supplied Sprint-3 announcement. Current-code claims refer to 04dd3ac. Planned items are not completed features."
+  }
+]
