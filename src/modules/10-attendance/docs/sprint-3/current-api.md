@@ -1,57 +1,42 @@
-# Sprint 3 - current API and integration boundary
+# Sprint 3 - current API and user instructions
 
-Verified implementation: `04dd3ac`, November 20, 2026. All paths below include the shared module
-prefix. No common router/core changes are required. Nasir owns updates for new contracts in #13.
+All paths below are relative to /10-attendance. The machine-readable OpenAPI 3.0.3 contract is ../../openapi.json and is served at /10-attendance/openapi.json. Version 0.3.0.
 
-| Method and path | Input | Current response |
-| --- | --- | --- |
-| GET /10-attendance | None | Attendance form HTML, 200 |
-| POST /10-attendance/attendance | Form fields listed below | Save/correct then 303 redirect to filtered history. Business validation errors: HTML 422. Storage failure: HTML 503. |
-| GET /10-attendance/history | Optional courseId, studentId, from, to query fields | History HTML, 200. Invalid filter: 422. Storage failure: 503. |
-| GET /10-attendance/api/attendance | Same optional filters | JSON `{ "records": [...] }`, 200. Invalid filter: `{ "errors": {...} }`, 422. Storage failure: `{ "error": "Could not load attendance." }`, 503. |
-| POST /10-attendance/api/attendance | JSON fields listed below | JSON `{ "record": {...} }`, 200. Invalid fields: `{ "errors": {...} }`, 422. Storage failure: `{ "error": "Could not save attendance." }`, 503. |
+| Method / path | Response / purpose |
+| --- | --- |
+| GET / | Attendance entry form |
+| POST /attendance | Save/correct attendance form; 303 on success |
+| GET /history | Filtered attendance history HTML |
+| GET /participation | Participation entry and history HTML |
+| POST /participation | Save/correct participation form; 303 on success |
+| GET /statistics | Filtered attendance and participation totals HTML |
+| GET /reports | Per-course/student report and CSV download HTML |
+| GET /api/attendance | JSON {records: [...]} |
+| POST /api/attendance | Save/correct, JSON {record: {...}}; 200 |
+| GET /api/participation | JSON {records: [...]} |
+| POST /api/participation | Save/correct, JSON {record: {...}}; 200 |
+| GET /api/statistics | JSON {statistics: {...}} |
+| GET /api/reports/attendance | JSON {rows: [...]} |
+| GET /reports/attendance.csv | Quoted CSV attachment with the same filters |
+| GET /openapi.json | API specification |
 
-The Elysia request schema also rejects missing or incorrectly typed fields. Malformed JSON can
-produce a framework parsing error before the business handler runs.
+Read filters: courseId, studentId, from, to. IDs match exactly after trimming request whitespace; omitted filters are empty. Both dates are included. Invalid/impossible/reversed dates return 422. Store failures return 503. See the specification for response schemas and error formats; framework shape errors may use Elysia's own validation response. Successful JSON writes return 200 because they may update an existing logical key.
 
-## Attendance request
+Participation JSON example:
 
 ```json
-{
-  "courseId": "DEMO101",
-  "studentId": "DEMO001",
-  "date": "2026-11-20",
-  "status": "present",
-  "notes": ""
-}
+{"courseId":"S3DEMO101","studentId":"S3DEMO001","date":"2026-11-20","activity":"Class discussion","score":4,"notes":""}
 ```
 
-Course/student IDs must be 1-50 characters after trimming. Dates must be real YYYY-MM-DD dates.
-Status is present, excused or unexcused. Notes are optional in the request, default to an empty
-string and have a 300-character business limit. Saving the same course/student/date updates
-status, notes and updatedAt while retaining the record ID.
+score accepts integer 0-5 or its numeric form string. activity is trimmed 1-100 characters. Re-submit the same course/student/date/activity to correct it. A changed activity label creates a separate activity; it does not rename an existing record.
 
-Returned records contain id, courseId, studentId, date, status, notes and updatedAt. Input values
-are bound in the write SQL and escaped in HTML views.
+## Simple live demo (Jaspreet)
 
-## History filters
+1. Open /10-attendance. Save fictional S3DEMO101 / S3DEMO001 / 2026-11-20 / Present. Show history and filters.
+2. Open Participation. Save Class discussion with score 4, then re-submit the same key with score 2. Show one corrected entry, not two.
+3. Save Group exercise for the same student/date with score 5. Show two activities.
+4. Open Statistics and filter course S3DEMO101. In a fresh demo dataset: 1 present mark, 2 activities, 7 points, average 3.5/5.
+5. Open Reports with the same course filter and click Download CSV. Open the downloaded file or show the saved evidence CSV. The report fields match the statistics.
+6. Use a fresh fictional course ID if the demo database already contains other examples. Do not delete another person's data to reset it.
 
-IDs use case-sensitive exact matches. Omitted/empty filters impose no restriction for that field.
-Date boundaries are inclusive. A reversed range returns 422. Results sort by newest date, then
-course/student ID. The current small local prototype reads records and applies filters in JavaScript.
-
-## Storage-only summary
-
-`AttendanceStore.countByStatus(courseId)` returns an object with present, excused and unexcused
-counts for recorded marks in one trimmed course ID. It is not an HTTP endpoint and the current
-views do not display it. DB-09 covers course isolation and correction of a mark between statuses.
-Empty/unknown/invalid-course contract checks are assigned to Gera and Arda.
-
-## Remaining integration
-
-Summary, participation and report routes have not been implemented. Agree their real paths,
-request/response/error contracts and participation rules before wiring the UI. Do not advertise
-draft URLs as working endpoints. No attendance percentage formula is assumed.
-
-Module 10 does not yet enforce authentication, roles or enrollment. Coordinate this dependency
-with Modules 1 and 2 under #5. Use fictional data locally until access checks exist.
+Use native browser date controls for the displayed locale; stored/API dates remain YYYY-MM-DD. The prototype does not enforce sign-in/roles/enrollment (#5); do not use real student records. An API breaking-change comparison against a reconstructed legacy attendance contract found no breaking changes. This is not proof of compatibility with an unavailable published external contract.

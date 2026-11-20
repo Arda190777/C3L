@@ -1,85 +1,59 @@
-# Module 10: Attendance & Participation Tracking
+# Module 10 - Attendance & Participation Tracking
 
-Sprint 1 implements daily attendance, attendance history and excused/unexcused absences.
-The module uses JavaScript, Elysia and Bun's built-in SQLite support. No packages were added.
-The shared application remains TypeScript; its loader supports this module's `index.js`.
+Sprint 3 implemented candidate (November 20, 2026). JavaScript, Elysia and Bun's built-in SQLite. Mounted by C3L's shared router at /10-attendance; no root/core changes or new runtime dependencies.
 
-## Run
-
-From the repository root:
+## Run the same candidate
 
 ```sh
+git clone --branch feature/attendance-sprint-3-plan --single-branch https://github.com/Arda190777/C3L.git
+cd C3L
 bun install --frozen-lockfile
 bun run dev
 ```
 
-Open `http://localhost:3000/10-attendance` or select Module 10 on the home page.
-Use sample data only: login, instructor permissions and enrollment checks are still open in #5.
+Open http://localhost:3000/10-attendance. Use fictional course/student IDs only. This module does not enforce login, roles or enrollment yet (#5). Candidate tag: `module10-sprint3-v0.3.0-rc.1`. PR #14 is for teammate review, not an already merged release.
 
-## Try it
+## Working functionality
 
-1. Enter course `PROG3000`, student `S1001` and date `2026-10-16`.
-2. Choose Present and save. The history page shows the saved mark.
-3. Save the same IDs and date as Absent - excused. The existing mark is corrected.
-4. Filter history by course, student or dates. IDs are case-sensitive exact matches.
-5. Restart the server. Saved records remain in the local SQLite database.
+- Record and correct one daily attendance mark per course/student/date; Present, Absent - excused or Absent - unexcused.
+- Filter attendance history by exact IDs and inclusive dates.
+- Record participation activities with integer scores 0-5; correct the same activity without duplicates; filter history.
+- Show attendance/participation statistics and per-student reports; download a filtered CSV.
+- Preserve attendance when upgrading to SQLite schema v2; data survives restarting the app.
 
-Only one mark per calendar day is supported for a student in a course. Separate class sessions,
-participation scores, reports and statistics are outside Sprint 1.
+Present rate = Present / recorded marks, including excused and unexcused. Missing marks do not become absences. Participation average = total points / entries. The local 0-5 scale is not an approved institutional grading policy.
 
-## Files
+## Main files
 
-| File | Responsibility |
+| Files | Purpose / presentation owner |
 | --- | --- |
-| `index.js` | Module registration and database path |
-| `router.js` | HTML and JSON routes |
-| `attendance.js` | Status labels and input validation |
-| `store.js` | AttendanceStore class and parameterized SQLite queries |
-| `formPage.js` | Attendance form UI (Arda's assigned area) |
-| `historyPage.js` | History table/filter UI (Jaspreet's assigned area) |
-| `pageLayout.js` | Shared layout and accessible validation messages |
-| `pages.js` | Exports both page views for the router |
-| `*.test.js` | Unit, storage and integration tests |
-| `docs/` | Requirements proposal, design, sprint plan, testing evidence and submissions |
+| store.js, schema.sql | SQLite persistence, corrections, reports, totals and additive upgrade - Gera |
+| store.test.js | Storage, filter, report and persistence tests - Arda (slides 6-7 only) |
+| formPage.js, historyPage.js, participationPage.js, reportPages.js, pageLayout.js, pages.js | HTML views, filters, navigation - Jaspreet; introduction/demo |
+| router.js, attendance.js, reportExport.js, openapi.json, index.js | Shared-router integration, validation, JSON/CSV and module entry - Nasir |
+| attendance.test.js, router.test.js | Validation and mounted HTTP regression tests; overall results summarized by Arda |
 
-The database is created lazily at `data/attendance.sqlite`. That directory is git-ignored.
-It is a single-machine prototype database, not shared hosting or multi-instance storage.
-Notes are limited to 300 characters; do not enter private health or personal information.
+Ownership is for understanding/review/presentation, not fabricated commit authorship. All members should review their assigned area.
 
-## Check and document
+## Database and checks
+
+The file database is created lazily at data/attendance.sqlite (git-ignored); most tests use :memory:. Back up existing files before opening them with v2. schema.sql is the canonical additive DDL. Attendance key: course/student/date. Participation key: course/student/date/activity. Scores 0-5; activity 1-100 characters; notes at most 300. No audit log or pagination. Keep schema.sql beside the source when running the module.
 
 ```sh
 bun test src/modules/10-attendance
 bun run check
-doxygen src/modules/10-attendance/Doxyfile
 ```
 
-`bun run check` lints JavaScript, type-checks the existing TypeScript app, runs all tests and checks
-all module front pages. The root TypeScript configuration does not type-check JavaScript.
-The JavaScript behavior is covered by module tests and mounted-router tests.
-Doxygen outputs to `docs/generated/html`; zip that directory for the HTML design submission.
-The design pages document the JavaScript API explicitly; no TypeScript conversion is required.
+Verified `86d64cc`: 47 module tests / 230 assertions; 103 repository tests / 401 assertions; lint, TypeScript host check and all 12 module front pages pass. The host TypeScript check does not type-check JavaScript. Real browser checks include corrections, report download and a narrow statistics layout.
 
-See [Sprint 1 plan](docs/sprint-1.md), [SRS update proposal](docs/srs-update.md),
-[design and API](docs/design.md) and [test results](docs/testing.md).
+## Current documentation and presentation
 
-The [four-person work plan](docs/team-work-plan.md) assigns the small UI sections to Arda/Jaspreet
-and balanced write/read backend sections to Gera/Nasir. The presentation and individual English
-rehearsal sheets are in `docs/presentation/`.
+- [Four-person task allocation and setup](docs/sprint-3/team-plan.md)
+- [Requirements / shared SRS contribution](docs/sprint-3/requirements-map.md) - external shared update still pending
+- [Architecture and database design](docs/sprint-3/design.md)
+- [API and live-demo steps](docs/sprint-3/current-api.md); machine-readable [OpenAPI](openapi.json)
+- [Executed tests and evidence](docs/sprint-3/testing.md)
+- [Release notes / known issues](docs/sprint-3/release-readiness.md)
+- [Team handout PDF](docs/sprint-3/Sprint3-Team-Plan.pdf), [Arda transcript PDF](docs/sprint-3/Arda-Sprint3-Transcript.pdf), [slide speaker notes](docs/sprint-3/speaker-notes.md)
 
-## Current Sprint 3 plan - November 20, 2026
-
-The latest implementation baseline is `04dd3ac` on `feature/attendance-sprint-2-stats`.
-It adds `countByStatus(courseId)` in storage. A statistics screen/API, participation and reports
-are still pending. The Sprint 1 documents above are historical.
-
-The [Sprint 3 team plan](docs/sprint-3/team-plan.md) is the current responsibility allocation:
-Gera owns storage/database improvements, Arda owns testing, Jaspreet owns the UI/demo, and Nasir
-owns API integration and technical/release documentation. Task issues are #10, #11, #12 and #13.
-
-See the [requirement mapping](docs/sprint-3/requirements-map.md),
-[current API](docs/sprint-3/current-api.md), [release-readiness snapshot](docs/sprint-3/release-readiness.md),
-[team handout](docs/sprint-3/Sprint3-Team-Plan.pdf),
-[Arda's transcript](docs/sprint-3/Arda-Sprint3-Transcript.pdf) and
-[speaker notes](docs/sprint-3/speaker-notes.md). Fresh baseline evidence records 28 module tests,
-84 repository tests and all 12 module front pages passing. Future features need their own tests.
+Historical Sprint 1 forms, release notes and presentation files remain under docs/. They describe the earlier scope; use the Sprint 3 links above for current behavior and responsibilities. Issues #10-13 track the current ownership; #6/#15 are completed on the candidate; #5 remains open for identity/enrollment integration. The actual [Sprint 3 Project board](https://github.com/users/Arda190777/projects/1) is updated and linked (private, owner sign-in required). Real peer review and shared SRS mapping remain pending.

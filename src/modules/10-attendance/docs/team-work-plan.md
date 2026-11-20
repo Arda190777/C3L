@@ -1,3 +1,5 @@
+> Historical Sprint 1 document. Current Sprint 3 content: [open here](sprint-3/team-plan.md). The current candidate implements participation, reports and statistics.
+
 # Sprint 1 - four-person work plan
 
 Presentation: Tuesday, October 20, 2026. Target: 11 minutes of presentation/demo plus 2 minutes

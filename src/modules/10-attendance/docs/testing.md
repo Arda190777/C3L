@@ -1,3 +1,5 @@
+> Historical Sprint 1 document. Current Sprint 3 content: [open here](sprint-3/testing.md). The current candidate implements participation, reports and statistics.
+
 # Sprint 1 test results
 
 Executed October 16, 2026 on Windows with Bun 1.4.3. Tested code commit: `d1810dc`.

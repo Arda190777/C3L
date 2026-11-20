@@ -1,3 +1,5 @@
+> Historical Sprint 1 document. Current Sprint 3 content: [open here](sprint-3/requirements-map.md). The current candidate implements participation, reports and statistics.
+
 # Module 10 - SRS update proposal
 
 Prepared October 16, 2026. Sprint 1 candidate.

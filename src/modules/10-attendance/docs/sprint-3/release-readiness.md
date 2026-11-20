@@ -1,39 +1,36 @@
-# Sprint 3 - baseline release-readiness snapshot
+# Release notes - Module 10 Sprint 3
 
-Service: Module 10 - Attendance & Participation Tracking.
-Repository: https://github.com/Arda190777/C3L
-Implementation branch: feature/attendance-sprint-2-stats.
-Verified implementation commit: 04dd3ac09e93d4856df767776e4c4908f05c1feb.
-Planning/documentation branch: feature/attendance-sprint-3-plan.
-Prepared: November 20, 2026.
-Sprint 3 tag: not created. Latest existing candidate tag is the historical Sprint 1 tag module10-sprint1-v0.1.0-rc.3.
+Service: C3L Attendance & Participation Tracking (Module 10). Candidate version: 0.3.0.
+Repository: https://github.com/Arda190777/C3L. Branch: `feature/attendance-sprint-3-plan`. Candidate tag: `module10-sprint3-v0.3.0-rc.1`.
+Final behavior-tested source: `86d64cc`. PR: https://github.com/Arda190777/C3L/pull/14. The candidate is not merged to main and is not a production release.
 
-## Implemented baseline
-- Daily attendance save/correction, history filters and absence types (#1/#2/#3).
-- Latest push adds countByStatus(courseId) and DB-09 (#6 partial). This method is storage-only, with no summary route or screen.
-- Fresh baseline checks: 28 module tests, 84 repository tests and 12 front pages passed. Full output is in evidence/.
+## New functionality
 
-These are implemented capabilities, not a claim that the associated issues or PR #7 have been closed/merged.
+- Participation entry/history, integer scores 0-5 and same-activity corrections (M10-FR-04, #6/#10/#12/#13).
+- Per-student/course report in HTML, JSON and downloadable quoted CSV with shared exact-ID/inclusive-date filters (M10-FR-05).
+- Statistics screen/API with recorded attendance counts, present rate, participation count/points/average (M10-FR-06).
+- Additive SQLite schema version 2 preserves old attendance and creates participation. Reject newer database versions instead of downgrading.
+- OpenAPI specification, updated design/SRS contribution, installation/use instructions and executed regression evidence.
 
-## Known issues and remaining work
-- #10: participation/report storage and final database decisions remain planned.
-- #12/#13: summary UI/API and participation/report integration are missing at baseline.
-- #5: authentication, roles and enrollment enforcement remain unimplemented in Module 10. Use sample IDs locally.
-- #11: new feature-specific cases and the final integrated regression run remain pending. Current passing counts do not prove coverage of unimplemented features.
-- #13: shared SRS link/mapping is pending. Architecture/API/release documents need updates as implementation changes.
-- GitHub Projects access is unavailable with the current token. Use the repository backlog until board access is available.
-- Nasir must accept the existing repository invitation before #13 can be formally assigned.
-- One mark per student/course/day. Corrections replace status/notes. No audit log, pagination or multiple daily sessions.
-- SQLite is local to one application installation. No Sprint 3 release has been published.
+## Fixes and regression
+
+#15: countByStatus previously accepted blank course IDs and returned zeros. It now validates/normalizes IDs; DB-10 passes. Date inputs now retain a visible outline while keyboard focus moves within their subfields. Existing attendance routes and daily correction behavior remain compatible.
+
+Final result: 47 module tests, 103 repository tests, lint, TypeScript host check and all 12 front pages passed. See [test evidence](testing.md). No percentage test coverage is claimed.
 
 ## Installation and use
-From the repository root: bun install --frozen-lockfile, then bun run dev.
-Open http://localhost:3000/10-attendance. Record a fictional course/student/date and one of the three statuses. Save the same combination to correct it. Use history filters to read records.
-Course counts currently appear through the storage method/tests, not a working statistics screen.
 
-## Release gate
-- [ ] Implement agreed major features and finalize database/API contracts.
-- [ ] Complete real reviews and update the issue/backlog status.
-- [ ] Update the collaborative SRS, design diagrams, API and user instructions.
-- [ ] Run full regression against the exact final commit and record known defects.
-- [ ] Create a release tag on the reviewed candidate and update these notes with its real value.
+Requires Git and Bun. Clone the Sprint 3 branch (see [team plan](team-plan.md)), run `bun install --frozen-lockfile`, then `bun run dev`. Open http://localhost:3000/10-attendance. An available alternative port can be set through PORT; browser verification used 3100. SQLite creates data/attendance.sqlite lazily; do not commit that directory. Use only fictional IDs. See [API/user guide](current-api.md) for the five-screen demo and CSV use.
+
+Before first opening an existing database with this version, stop the app and back up the file and any SQLite sidecars. Version 2 is additive and transactional; there is no destructive automatic rollback. Keep the schema file with the JavaScript sources when running/deploying this module.
+
+## Known issues and remaining work
+
+- #5: no sign-in, role or course-enrollment enforcement in Module 10. Cross-module integration remains open. The local prototype must not store real student data.
+- #10/#11/#12: implementation/test evidence ready for real teammate review; human reviews/rehearsal not fabricated as complete.
+- #13: Nasir's invitation is pending; the collaborative SRS link/official requirement IDs are missing. Local contribution is ready, but shared document edit is not complete.
+- Actual GitHub Project board, Issues and milestone 2 are updated. The board retains default private visibility; use the owner's signed-in account to present it. Public repository Issues and committed evidence are available independently.
+- One attendance mark per student/course/day; participation corrections replace score/notes for the same activity. No immutable audit log, deletion UI, attendance sessions, pagination or multi-instance database support.
+- Present rate uses recorded marks, not enrolled students or scheduled sessions. The 0-5 participation scale is a local prototype choice, not an institutional grading policy.
+
+After Sprint 3: real peer review, cross-module access integration, targeted bug fixes, regression, documentation and final demonstration rehearsal. No missing local participation/report/statistics feature is deferred to Week 14.

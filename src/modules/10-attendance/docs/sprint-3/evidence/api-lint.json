@@ -1,0 +1,111 @@
+{
+  "summary": {
+    "total_endpoints": 7,
+    "endpoints_with_issues": 5,
+    "total_issues": 14,
+    "errors": 0,
+    "warnings": 1,
+    "info": 13,
+    "score": 97.71
+  },
+  "issues": [
+    {
+      "severity": "info",
+      "category": "responses",
+      "message": "Uncommon status code 422 for GET /api/attendance",
+      "path": "/paths//api/attendance/get/responses/422",
+      "suggestion": "Consider using standard codes for GET: [200, 304, 404]"
+    },
+    {
+      "severity": "info",
+      "category": "responses",
+      "message": "Uncommon status code 503 for GET /api/attendance",
+      "path": "/paths//api/attendance/get/responses/503",
+      "suggestion": "Consider using standard codes for GET: [200, 304, 404]"
+    },
+    {
+      "severity": "info",
+      "category": "responses",
+      "message": "Uncommon status code 503 for POST /api/attendance",
+      "path": "/paths//api/attendance/post/responses/503",
+      "suggestion": "Consider using standard codes for POST: [200, 201, 400, 409, 422]"
+    },
+    {
+      "severity": "info",
+      "category": "responses",
+      "message": "Uncommon status code 422 for GET /api/participation",
+      "path": "/paths//api/participation/get/responses/422",
+      "suggestion": "Consider using standard codes for GET: [200, 304, 404]"
+    },
+    {
+      "severity": "info",
+      "category": "responses",
+      "message": "Uncommon status code 503 for GET /api/participation",
+      "path": "/paths//api/participation/get/responses/503",
+      "suggestion": "Consider using standard codes for GET: [200, 304, 404]"
+    },
+    {
+      "severity": "info",
+      "category": "responses",
+      "message": "Uncommon status code 503 for POST /api/participation",
+      "path": "/paths//api/participation/post/responses/503",
+      "suggestion": "Consider using standard codes for POST: [200, 201, 400, 409, 422]"
+    },
+    {
+      "severity": "info",
+      "category": "responses",
+      "message": "Uncommon status code 422 for GET /api/statistics",
+      "path": "/paths//api/statistics/get/responses/422",
+      "suggestion": "Consider using standard codes for GET: [200, 304, 404]"
+    },
+    {
+      "severity": "info",
+      "category": "responses",
+      "message": "Uncommon status code 503 for GET /api/statistics",
+      "path": "/paths//api/statistics/get/responses/503",
+      "suggestion": "Consider using standard codes for GET: [200, 304, 404]"
+    },
+    {
+      "severity": "info",
+      "category": "responses",
+      "message": "Uncommon status code 422 for GET /api/reports/attendance",
+      "path": "/paths//api/reports/attendance/get/responses/422",
+      "suggestion": "Consider using standard codes for GET: [200, 304, 404]"
+    },
+    {
+      "severity": "info",
+      "category": "responses",
+      "message": "Uncommon status code 503 for GET /api/reports/attendance",
+      "path": "/paths//api/reports/attendance/get/responses/503",
+      "suggestion": "Consider using standard codes for GET: [200, 304, 404]"
+    },
+    {
+      "severity": "warning",
+      "category": "naming",
+      "message": "Resource segment 'attendance.csv' should use kebab-case",
+      "path": "/paths//reports/attendance.csv",
+      "suggestion": "Use kebab-case for 'attendance.csv' (e.g., 'user-profiles', 'order-items')"
+    },
+    {
+      "severity": "info",
+      "category": "responses",
+      "message": "Uncommon status code 422 for GET /reports/attendance.csv",
+      "path": "/paths//reports/attendance.csv/get/responses/422",
+      "suggestion": "Consider using standard codes for GET: [200, 304, 404]"
+    },
+    {
+      "severity": "info",
+      "category": "responses",
+      "message": "Uncommon status code 503 for GET /reports/attendance.csv",
+      "path": "/paths//reports/attendance.csv/get/responses/503",
+      "suggestion": "Consider using standard codes for GET: [200, 304, 404]"
+    },
+    {
+      "severity": "info",
+      "category": "structure",
+      "message": "Missing components section",
+      "path": "/components",
+      "suggestion": "Consider defining reusable components (schemas, responses, parameters)"
+    }
+  ]
+}

@@ -1,0 +1,858 @@
+{
+  "elements": [
+    {
+      "bg": "rgb(248, 250, 252)",
+      "color": "rgb(29, 78, 216)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-0",
+      "interactive": true,
+      "name": "All modules",
+      "rect": {
+        "h": 41.60000228881836,
+        "w": 83.125,
+        "x": 131.40000915527344,
+        "y": 24
+      },
+      "tag": "a",
+      "text": "All modules",
+      "focus": {
+        "how": "keyboard",
+        "id": "node-0",
+        "indicator": true
+      }
+    },
+    {
+      "bg": "rgb(248, 250, 252)",
+      "color": "rgb(29, 78, 216)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-1",
+      "interactive": true,
+      "name": "Record attendance",
+      "rect": {
+        "h": 41.60000228881836,
+        "w": 132.3874969482422,
+        "x": 238.52500915527344,
+        "y": 24
+      },
+      "tag": "a",
+      "text": "Record attendance",
+      "focus": {
+        "how": "keyboard",
+        "id": "node-1",
+        "indicator": true
+      }
+    },
+    {
+      "bg": "rgb(248, 250, 252)",
+      "color": "rgb(29, 78, 216)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-2",
+      "interactive": true,
+      "name": "Attendance history",
+      "rect": {
+        "h": 41.60000228881836,
+        "w": 133.1750030517578,
+        "x": 394.9125061035156,
+        "y": 24
+      },
+      "tag": "a",
+      "text": "Attendance history",
+      "focus": {
+        "how": "keyboard",
+        "id": "node-2",
+        "indicator": true
+      }
+    },
+    {
+      "bg": "rgb(248, 250, 252)",
+      "color": "rgb(29, 78, 216)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-3",
+      "interactive": true,
+      "name": "Participation",
+      "rect": {
+        "h": 41.60000228881836,
+        "w": 87.9625015258789,
+        "x": 552.0875244140625,
+        "y": 24
+      },
+      "tag": "a",
+      "text": "Participation",
+      "focus": {
+        "how": "keyboard",
+        "id": "node-3",
+        "indicator": true
+      }
+    },
+    {
+      "bg": "rgb(248, 250, 252)",
+      "color": "rgb(29, 78, 216)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-4",
+      "interactive": true,
+      "name": "Statistics",
+      "rect": {
+        "h": 41.60000228881836,
+        "w": 61.11249923706055,
+        "x": 664.0499877929688,
+        "y": 24
+      },
+      "tag": "a",
+      "text": "Statistics",
+      "focus": {
+        "how": "keyboard",
+        "id": "node-4",
+        "indicator": true
+      }
+    },
+    {
+      "bg": "rgb(248, 250, 252)",
+      "color": "rgb(29, 78, 216)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-5",
+      "interactive": true,
+      "name": "Reports",
+      "rect": {
+        "h": 41.60000228881836,
+        "w": 54.025001525878906,
+        "x": 749.1625366210938,
+        "y": 24
+      },
+      "tag": "a",
+      "text": "Reports",
+      "focus": {
+        "how": "keyboard",
+        "id": "node-5",
+        "indicator": true
+      }
+    },
+    {
+      "bg": "rgb(248, 250, 252)",
+      "color": "rgb(71, 85, 105)",
+      "disabled": false,
+      "fontSize": 13.6,
+      "fontWeight": 400,
+      "id": "node-6",
+      "interactive": false,
+      "name": "C3L / MODULE 10",
+      "rect": {
+        "h": 21.75,
+        "w": 1002,
+        "x": 131.40000915527344,
+        "y": 110.4000015258789
+      },
+      "tag": "p",
+      "text": "C3L / MODULE 10"
+    },
+    {
+      "bg": "rgb(248, 250, 252)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 32,
+      "fontWeight": 700,
+      "id": "node-7",
+      "interactive": false,
+      "name": "Attendance statistics",
+      "rect": {
+        "h": 38.400001525878906,
+        "w": 1002,
+        "x": 131.40000915527344,
+        "y": 153.58750915527344
+      },
+      "tag": "h1",
+      "text": "Attendance statistics"
+    },
+    {
+      "bg": "rgb(248, 250, 252)",
+      "color": "rgb(71, 85, 105)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-8",
+      "interactive": false,
+      "name": "Attendance & Participation Tracking",
+      "rect": {
+        "h": 25.600000381469727,
+        "w": 1002,
+        "x": 131.40000915527344,
+        "y": 199.9875030517578
+      },
+      "tag": "p",
+      "text": "Attendance & Participation Tracking"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 17.6,
+      "fontWeight": 700,
+      "id": "node-9",
+      "interactive": false,
+      "name": "Filter records",
+      "rect": {
+        "h": 28.149999618530273,
+        "w": 952.4000244140624,
+        "x": 156.1999969482422,
+        "y": 347.9875183105469
+      },
+      "tag": "h2",
+      "text": "Filter records"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 600,
+      "id": "node-10",
+      "interactive": false,
+      "name": "Course ID",
+      "rect": {
+        "h": 25.600000381469727,
+        "w": 466.2000122070313,
+        "x": 156.1999969482422,
+        "y": 390.7375183105469
+      },
+      "tag": "label",
+      "text": "Course ID"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "filter-courseId",
+      "interactive": true,
+      "name": "Course ID",
+      "rect": {
+        "h": 44,
+        "w": 466.2000122070313,
+        "x": 156.1999969482422,
+        "y": 422.3374938964844
+      },
+      "tag": "input",
+      "text": "",
+      "focus": {
+        "how": "keyboard",
+        "id": "filter-courseId",
+        "indicator": true
+      }
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 600,
+      "id": "node-12",
+      "interactive": false,
+      "name": "Student ID",
+      "rect": {
+        "h": 25.600000381469727,
+        "w": 466.2000122070313,
+        "x": 642.4000244140625,
+        "y": 390.7375183105469
+      },
+      "tag": "label",
+      "text": "Student ID"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "filter-studentId",
+      "interactive": true,
+      "name": "Student ID",
+      "rect": {
+        "h": 44,
+        "w": 466.2000122070313,
+        "x": 642.4000244140625,
+        "y": 422.3374938964844
+      },
+      "tag": "input",
+      "text": "",
+      "focus": {
+        "how": "keyboard",
+        "id": "filter-studentId",
+        "indicator": true
+      }
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 600,
+      "id": "node-14",
+      "interactive": false,
+      "name": "From date",
+      "rect": {
+        "h": 25.600000381469727,
+        "w": 466.2000122070313,
+        "x": 156.1999969482422,
+        "y": 486.3374938964844
+      },
+      "tag": "label",
+      "text": "From date"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "filter-from",
+      "interactive": true,
+      "name": "From date",
+      "rect": {
+        "h": 45.20000076293945,
+        "w": 466.2000122070313,
+        "x": 156.1999969482422,
+        "y": 517.9375
+      },
+      "tag": "input",
+      "text": "",
+      "focus": {
+        "how": "keyboard",
+        "id": "filter-from",
+        "indicator": true
+      }
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 600,
+      "id": "node-16",
+      "interactive": false,
+      "name": "To date",
+      "rect": {
+        "h": 25.600000381469727,
+        "w": 466.2000122070313,
+        "x": 642.4000244140625,
+        "y": 486.3374938964844
+      },
+      "tag": "label",
+      "text": "To date"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "filter-to",
+      "interactive": true,
+      "name": "To date",
+      "rect": {
+        "h": 45.20000076293945,
+        "w": 466.2000122070313,
+        "x": 642.4000244140625,
+        "y": 517.9375
+      },
+      "tag": "input",
+      "text": "",
+      "focus": {
+        "how": "keyboard",
+        "id": "filter-to",
+        "indicator": true
+      }
+    },
+    {
+      "bg": "rgb(29, 78, 216)",
+      "color": "rgb(255, 255, 255)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-18",
+      "interactive": true,
+      "name": "Apply filters",
+      "rect": {
+        "h": 45.60000228881836,
+        "w": 128.03750610351562,
+        "x": 156.1999969482422,
+        "y": 583.1375122070312
+      },
+      "tag": "button",
+      "text": "Apply filters",
+      "focus": {
+        "how": "keyboard",
+        "id": "node-18",
+        "indicator": true
+      }
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(29, 78, 216)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-19",
+      "interactive": true,
+      "name": "Clear filters",
+      "rect": {
+        "h": 25.600000381469727,
+        "w": 79.13750457763672,
+        "x": 304.2375183105469,
+        "y": 593.1375122070312
+      },
+      "tag": "a",
+      "text": "Clear filters",
+      "focus": {
+        "how": "keyboard",
+        "id": "node-19",
+        "indicator": true
+      }
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(71, 85, 105)",
+      "disabled": false,
+      "fontSize": 14.4,
+      "fontWeight": 400,
+      "id": "node-20",
+      "interactive": false,
+      "name": "IDs match exactly. Both date limits are included.",
+      "rect": {
+        "h": 23.037500381469727,
+        "w": 952.4000244140624,
+        "x": 156.1999969482422,
+        "y": 634.7374877929688
+      },
+      "tag": "p",
+      "text": "IDs match exactly. Both date limits are included."
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 17.6,
+      "fontWeight": 700,
+      "id": "node-21",
+      "interactive": false,
+      "name": "Attendance and participation totals",
+      "rect": {
+        "h": 28.149999618530273,
+        "w": 952.4000244140624,
+        "x": 156.1999969482422,
+        "y": 745.7750244140625
+      },
+      "tag": "h2",
+      "text": "Attendance and participation totals"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 600,
+      "id": "node-22",
+      "interactive": false,
+      "name": "Totals for the selected filters",
+      "rect": {
+        "h": 37.60000228881836,
+        "w": 952.4000244140624,
+        "x": 156.1999969482422,
+        "y": 788.5250244140625
+      },
+      "tag": "caption",
+      "text": "Totals for the selected filters"
+    },
+    {
+      "bg": "rgb(241, 245, 249)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 700,
+      "id": "node-23",
+      "interactive": false,
+      "name": "Measure",
+      "rect": {
+        "h": 50,
+        "w": 736.5625,
+        "x": 156.1999969482422,
+        "y": 826.125
+      },
+      "tag": "th",
+      "text": "Measure"
+    },
+    {
+      "bg": "rgb(241, 245, 249)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 700,
+      "id": "node-24",
+      "interactive": false,
+      "name": "Value",
+      "rect": {
+        "h": 50,
+        "w": 215.83750915527344,
+        "x": 892.7625122070312,
+        "y": 826.125
+      },
+      "tag": "th",
+      "text": "Value"
+    },
+    {
+      "bg": "rgb(241, 245, 249)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 700,
+      "id": "node-25",
+      "interactive": false,
+      "name": "Present",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 736.5625,
+        "x": 156.1999969482422,
+        "y": 876.125
+      },
+      "tag": "th",
+      "text": "Present"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-26",
+      "interactive": false,
+      "name": "1",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 215.83750915527344,
+        "x": 892.7625122070312,
+        "y": 876.125
+      },
+      "tag": "td",
+      "text": "1"
+    },
+    {
+      "bg": "rgb(241, 245, 249)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 700,
+      "id": "node-27",
+      "interactive": false,
+      "name": "Absent - excused",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 736.5625,
+        "x": 156.1999969482422,
+        "y": 926.5250244140624
+      },
+      "tag": "th",
+      "text": "Absent - excused"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-28",
+      "interactive": false,
+      "name": "0",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 215.83750915527344,
+        "x": 892.7625122070312,
+        "y": 926.5250244140624
+      },
+      "tag": "td",
+      "text": "0"
+    },
+    {
+      "bg": "rgb(241, 245, 249)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 700,
+      "id": "node-29",
+      "interactive": false,
+      "name": "Absent - unexcused",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 736.5625,
+        "x": 156.1999969482422,
+        "y": 976.9249877929688
+      },
+      "tag": "th",
+      "text": "Absent - unexcused"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-30",
+      "interactive": false,
+      "name": "0",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 215.83750915527344,
+        "x": 892.7625122070312,
+        "y": 976.9249877929688
+      },
+      "tag": "td",
+      "text": "0"
+    },
+    {
+      "bg": "rgb(241, 245, 249)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 700,
+      "id": "node-31",
+      "interactive": false,
+      "name": "Recorded attendance marks",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 736.5625,
+        "x": 156.1999969482422,
+        "y": 1027.3250732421875
+      },
+      "tag": "th",
+      "text": "Recorded attendance marks"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-32",
+      "interactive": false,
+      "name": "1",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 215.83750915527344,
+        "x": 892.7625122070312,
+        "y": 1027.3250732421875
+      },
+      "tag": "td",
+      "text": "1"
+    },
+    {
+      "bg": "rgb(241, 245, 249)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 700,
+      "id": "node-33",
+      "interactive": false,
+      "name": "Present rate",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 736.5625,
+        "x": 156.1999969482422,
+        "y": 1077.7249755859375
+      },
+      "tag": "th",
+      "text": "Present rate"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-34",
+      "interactive": false,
+      "name": "100%",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 215.83750915527344,
+        "x": 892.7625122070312,
+        "y": 1077.7249755859375
+      },
+      "tag": "td",
+      "text": "100%"
+    },
+    {
+      "bg": "rgb(241, 245, 249)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 700,
+      "id": "node-35",
+      "interactive": false,
+      "name": "Participation entries",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 736.5625,
+        "x": 156.1999969482422,
+        "y": 1128.125
+      },
+      "tag": "th",
+      "text": "Participation entries"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-36",
+      "interactive": false,
+      "name": "2",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 215.83750915527344,
+        "x": 892.7625122070312,
+        "y": 1128.125
+      },
+      "tag": "td",
+      "text": "2"
+    },
+    {
+      "bg": "rgb(241, 245, 249)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 700,
+      "id": "node-37",
+      "interactive": false,
+      "name": "Participation points",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 736.5625,
+        "x": 156.1999969482422,
+        "y": 1178.5250244140625
+      },
+      "tag": "th",
+      "text": "Participation points"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-38",
+      "interactive": false,
+      "name": "7",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 215.83750915527344,
+        "x": 892.7625122070312,
+        "y": 1178.5250244140625
+      },
+      "tag": "td",
+      "text": "7"
+    },
+    {
+      "bg": "rgb(241, 245, 249)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 700,
+      "id": "node-39",
+      "interactive": false,
+      "name": "Average participation score",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 736.5625,
+        "x": 156.1999969482422,
+        "y": 1228.925048828125
+      },
+      "tag": "th",
+      "text": "Average participation score"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(30, 41, 59)",
+      "disabled": false,
+      "fontSize": 16,
+      "fontWeight": 400,
+      "id": "node-40",
+      "interactive": false,
+      "name": "3.5 / 5",
+      "rect": {
+        "h": 50.400001525878906,
+        "w": 215.83750915527344,
+        "x": 892.7625122070312,
+        "y": 1228.925048828125
+      },
+      "tag": "td",
+      "text": "3.5 / 5"
+    },
+    {
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(71, 85, 105)",
+      "disabled": false,
+      "fontSize": 14.4,
+      "fontWeight": 400,
+      "id": "node-41",
+      "interactive": false,
+      "name": "Present rate = Present / recorded attendance marks, including excused and unexcused marks. Missing marks are not counted as absences. This is not a rate based on enrolled students.",
+      "rect": {
+        "h": 46.07500076293945,
+        "w": 952.4000244140624,
+        "x": 156.1999969482422,
+        "y": 1285.7249755859375
+      },
+      "tag": "p",
+      "text": "Present rate = Present / recorded attendance marks, including excused and unexcused marks. Missing marks are not counted as absences. This is not a rate based on enrolled students."
+    },
+    {
+      "bg": "rgb(248, 250, 252)",
+      "color": "rgb(29, 78, 216)",
+      "disabled": false,
+      "fontSize": 14.4,
+      "fontWeight": 400,
+      "id": "node-42",
+      "interactive": true,
+      "name": "API specification",
+      "rect": {
+        "h": 19.200000762939453,
+        "w": 104.3125,
+        "x": 491.1750183105469,
+        "y": 1400.5999755859375
+      },
+      "tag": "a",
+      "text": "API specification",
+      "focus": {
+        "how": "keyboard",
+        "id": "node-42",
+        "indicator": true
+      }
+    }
+  ],
+  "page": {
+    "clientWidth": 1265,
+    "scrollWidth": 1265
+  },
+  "tool": "design-qa/browser-read-only",
+  "url": "http://localhost:3100/10-attendance/statistics?courseId=S3DEMO101",
+  "version": 1,
+  "viewport": {
+    "height": 720,
+    "width": 1280
+  },
+  "keyboard_pass": {
+    "reached": 14,
+    "wrapped": true
+  }
+}
