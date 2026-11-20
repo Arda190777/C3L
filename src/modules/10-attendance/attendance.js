@@ -15,7 +15,8 @@ export const statusLabels = {
 export function isValidDate(value) {
   // First require exactly YYYY-MM-DD and a nonzero year. The regular expression
   // checks the shape; it cannot tell whether a day actually exists in that month.
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value) || value.startsWith('0000')) return false
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value) || value.startsWith('0000'))
+    return false
   // Use midnight UTC to avoid the computer's local timezone changing the calendar day.
   const date = new Date(`${value}T00:00:00Z`)
   // Invalid dates have a NaN timestamp. Comparing the converted date with the input
@@ -23,30 +24,67 @@ export function isValidDate(value) {
   return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value
 }
 /** Returns errors keyed by input name; an empty object means every rule passed. */
-export function validateAttendance(input) {
+function validateRecord(input) {
   // Callers supply string fields; the route's schema rejects missing/wrong-type values.
   // Matching error keys to form field names lets the UI show each message beside its input.
   const errors = {}
   // Both IDs use the same rule. trim() checks their meaningful length without
   // changing the supplied object; store.save() trims the values when saving them.
   for (const field of ['courseId', 'studentId']) {
-    if (!input[field].trim() || input[field].trim().length > 50) {
+    if (
+      typeof input[field] !== 'string' ||
+      !input[field].trim() ||
+      input[field].trim().length > 50
+    ) {
       errors[field] = 'Enter an ID between 1 and 50 characters.'
     }
   }
   if (!isValidDate(input.date)) errors.date = 'Enter a valid date.'
-  // An allowlist rejects arbitrary values such as 'late' that this sprint does not support.
+  if (typeof input.notes !== 'string' || input.notes.trim().length > 300) {
+    errors.notes = 'Use 300 characters or fewer.'
+  }
+  return errors
+}
+
+export function validateAttendance(input) {
+  const errors = validateRecord(input)
+  // An allowlist rejects arbitrary values such as 'late'.
   if (!attendanceStatuses.includes(input.status)) {
     errors.status = 'Choose an attendance status.'
   }
-  if (input.notes.trim().length > 300) errors.notes = 'Use 300 characters or fewer.'
+  return errors
+}
+
+/** Participation uses a documented integer score from 0 to 5 per activity. */
+export function validateParticipation(input) {
+  const errors = validateRecord(input)
+  if (
+    typeof input.activity !== 'string' ||
+    !input.activity.trim() ||
+    input.activity.trim().length > 100
+  ) {
+    errors.activity = 'Enter an activity between 1 and 100 characters.'
+  }
+  const score = Number(input.score)
+  const isNumberOrText = typeof input.score === 'number' || typeof input.score === 'string'
+  if (
+    !isNumberOrText ||
+    String(input.score).trim() === '' ||
+    !Number.isInteger(score) ||
+    score < 0 ||
+    score > 5
+  ) {
+    errors.score = 'Enter a whole-number score from 0 to 5.'
+  }
   return errors
 }
 /** Checks optional history filters. Blank fields mean no restriction on that field. */
 export function validateFilter(filter) {
   const errors = {}
   for (const field of ['courseId', 'studentId']) {
-    if (filter[field].length > 50) errors[field] = 'Use 50 characters or fewer.'
+    if (typeof filter[field] !== 'string' || filter[field].length > 50) {
+      errors[field] = 'Use 50 characters or fewer.'
+    }
   }
   // Unlike the attendance date, filter dates may be omitted. Validate only supplied dates.
   for (const field of ['from', 'to']) {
