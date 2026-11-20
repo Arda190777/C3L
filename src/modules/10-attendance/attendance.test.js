@@ -1,7 +1,12 @@
 // Unit tests exercise validation without routes or a database. describe() groups cases,
 // test() defines a case, and expect() checks its result. VAL IDs match the test plan.
 import { describe, expect, test } from 'bun:test'
-import { isValidDate, validateAttendance, validateFilter } from './attendance'
+import {
+  isValidDate,
+  validateAttendance,
+  validateFilter,
+  validateParticipation,
+} from './attendance'
 // Reuse one valid example. {...mark, field: value} changes only the field under test,
 // leaving the original example intact so tests do not affect each other's input.
 const mark = {
@@ -11,6 +16,42 @@ const mark = {
   status: 'present',
   notes: '',
 }
+
+test('PART-01 allows integer participation scores from zero to five', () => {
+  const input = { ...mark, activity: 'Discussion', score: 0 }
+  expect(validateParticipation(input)).toEqual({})
+  input.score = '5'
+  expect(validateParticipation(input)).toEqual({})
+  for (const score of ['', ' ', -1, 6, 1.5, 'abc', null, true]) {
+    input.score = score
+    expect(validateParticipation(input)).toHaveProperty('score')
+  }
+})
+
+test('PART-02 checks activity, date, ID and notes limits', () => {
+  const input = { ...mark, activity: '', score: 3 }
+  expect(validateParticipation(input)).toHaveProperty('activity')
+  input.activity = 'x'.repeat(101)
+  expect(validateParticipation(input)).toHaveProperty('activity')
+  input.activity = 'Discussion'
+  input.date = '2026-02-30'
+  input.studentId = ' '
+  input.notes = 'x'.repeat(301)
+  const errors = validateParticipation(input)
+  expect(errors).toHaveProperty('date')
+  expect(errors).toHaveProperty('studentId')
+  expect(errors).toHaveProperty('notes')
+})
+
+test('PART-03 wrong-type IDs, dates and filters return validation errors', () => {
+  expect(
+    validateParticipation({ ...mark, courseId: 123, activity: 'Discussion', score: 3 }),
+  ).toHaveProperty('courseId')
+  expect(isValidDate(null)).toBe(false)
+  expect(validateFilter({ courseId: [], studentId: '', from: '', to: '' })).toHaveProperty(
+    'courseId',
+  )
+})
 describe('attendance validation', () => {
   test('VAL-01 accepts all three attendance statuses', () => {
     // toEqual({}) checks that validation returns no field errors for each allowed status.
