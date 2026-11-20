@@ -38,7 +38,7 @@ export function page(base, title, content) {
       textarea { resize: vertical; }
       button { min-height: 44px; border: 0; border-radius: 4px; background: var(--primary); color: white; padding: 10px 22px; cursor: pointer; }
       button:hover { background: #1e40af; }
-      :focus-visible { outline: 3px solid #b45309; outline-offset: 3px; }
+      :focus-visible, input[type="date"]:focus-within { outline: 3px solid #b45309; outline-offset: 3px; }
       .wide { grid-column: 1 / -1; }
       .hint { display: block; color: var(--muted); font-size: .9rem; margin-top: 6px; }
       .error { color: #991b1b; display: block; margin-top: 6px; }
