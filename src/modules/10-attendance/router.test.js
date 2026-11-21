@@ -1,6 +1,6 @@
 // Integration tests send Request objects through the router and real SQLite storage.
 // They check HTTP statuses, response formats and resulting data without opening a port.
-import { afterEach, beforeEach, describe, expect, test } from 'bun:test'
+import { afterEach, beforeEach, describe, expect, spyOn, test } from 'bun:test'
 import { Elysia } from 'elysia'
 import { createApp } from '../../app'
 import { finishResponse } from '../../core/finishResponse'
@@ -211,6 +211,23 @@ describe('attendance routes through the shared prefix', () => {
     expect(response.headers.get('content-type')).toContain('application/json')
     expect(await readBody(response)).toEqual({ error: 'Could not load attendance.' })
   })
+  test('HTTP-18 summary counts the same student on multiple dates', async () => {
+    const marks = [
+      { date: '2026-10-16', status: 'present' },
+      { date: '2026-10-17', status: 'present' },
+      { date: '2026-10-18', status: 'excused' },
+      { date: '2026-10-19', status: 'unexcused' },
+    ]
+    for (const dailyMark of marks) {
+      expect((await handle(post({ ...mark, ...dailyMark }))).status).toBe(200)
+    }
+    const response = await handle(request('/api/attendance/summary?courseId=PROG3000'))
+    expect(response.status).toBe(200)
+    expect(await readBody(response)).toEqual({
+      courseId: 'PROG3000',
+      counts: { present: 2, excused: 1, unexcused: 1 },
+    })
+  })
   test('HTTP-11 uses a friendly error when storage fails', async () => {
     // Inject a deliberately failing store to exercise error handling reliably.
     // The response should report 503 without revealing the private exception text.
@@ -247,4 +264,24 @@ test('APP-01 discovers Module 10 and keeps the main site working', async () => {
   expect(attendance.headers.get('content-type')).toContain('text/html')
   expect(await attendance.text()).toContain('Record attendance')
   expect((await app.fetch(new Request('http://localhost/not-a-module'))).status).toBe(404)
+})
+
+test('APP-02 serves the summary as JSON through the real application', async () => {
+  // Keep the real loader, module registration and response wrapper, but stub the
+  // storage call so this application test never opens the demo database.
+  const counts = { present: 2, excused: 1, unexcused: 0 }
+  const countByStatus = spyOn(AttendanceStore.prototype, 'countByStatus').mockReturnValue(counts)
+  try {
+    const app = await createApp()
+    const response = await app.fetch(
+      new Request('http://localhost/10-attendance/api/attendance/summary?courseId=PROG3000'),
+    )
+    expect(response.status).toBe(200)
+    expect(response.headers.get('content-type')).toContain('application/json')
+    expect(await readBody(response)).toEqual({ courseId: 'PROG3000', counts })
+    expect(countByStatus).toHaveBeenCalledTimes(1)
+    expect(countByStatus).toHaveBeenCalledWith('PROG3000')
+  } finally {
+    countByStatus.mockRestore()
+  }
 })

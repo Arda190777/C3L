@@ -79,3 +79,45 @@ checks, not evidence of a teammate performing a review. Screenshots are in `docs
 | #6 | Backlog | Participation, reports and statistics not implemented |
 
 No real student data, teammate review, meeting or demo is claimed by these test results.
+
+## Attendance summary API verification - November 18, 2026
+
+This section records current summary API verification separately from the historical Sprint 1
+results above. The historical evidence files and results have not been replaced.
+Tested on Windows with Bun 1.4.4 (38afee6c8), on `nasir/attendance-updates`, with base commit
+`abf364b` plus the uncommitted HTTP-18 and APP-02 test additions described below.
+
+### Summary API cases
+
+| Test ID | Scenario / expected result | Result |
+| --- | --- | --- |
+| HTTP-12 | Trim course ID; return 200 JSON with all three counts; reading leaves records unchanged | Pass |
+| HTTP-13 | Missing, empty, whitespace-only and oversized course IDs return 422 field errors before opening storage | Pass |
+| HTTP-14 | Count only the exact, case-sensitive course ID; exclude other courses | Pass |
+| HTTP-15 | Correcting a daily mark moves its count to the new status without duplication | Pass |
+| HTTP-16 | Unrecorded course returns all zero counts; a 50-character course ID is accepted | Pass |
+| HTTP-17 | Counting failure returns 503 JSON with a friendly error and no private exception details | Pass |
+| HTTP-18 | One student across four dates contributes four marks: two present, one excused and one unexcused | Pass |
+| APP-02 | Real createApp().fetch() discovers/registers Module 10 and serves the summary path as 200 JSON with the expected course and counts | Pass |
+
+HTTP-12 through HTTP-18 use the mounted router and an isolated in-memory store; valid reads
+exercise real SQLite counting, while HTTP-17 deliberately stubs the count method to throw.
+APP-02 exercises the real application loader, module registration and response wrapper, with
+only `AttendanceStore.countByStatus` stubbed to keep the demo database untouched. The spy is
+restored in a finally block. APP-01 continues to cover the home page, attendance form and 404.
+
+The summary is an implemented course-count API, not a claim that all statistics or Sprint 2
+requirements are complete. Official SRS mapping and any new issue assignment remain to be verified;
+no new issue number or approved Sprint 2 allocation is assumed here.
+
+### Current automated results
+
+| Command | Result |
+| --- | --- |
+| bun test src/modules/10-attendance | 36 passed, 0 failed, 130 assertions across 3 files |
+| bun run check | Passed: lint, TypeScript host check, 92 tests with 301 assertions across 9 files, and all 12 module sanity checks |
+| git diff --check | Passed; no whitespace errors |
+
+All commands exited with status 0. Lint reported the existing Biome configuration deprecation
+information message; no fixes were applied. No new browser checks, teammate approvals or
+shared SRS updates are claimed by this run.
